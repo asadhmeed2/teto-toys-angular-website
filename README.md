@@ -2,6 +2,13 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.16.
 
+## Technologies
+
+- Angular 21.2.0
+- TypeScript 5.9.2
+- Node.js 20.20.2
+- codegraph 1.0.1 for tokens optimization
+
 ## Development server
 
 To start a local development server, run:

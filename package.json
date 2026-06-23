@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "./node_modules/.bin/ng serve --host 0.0.0.0",
-    "dev" : "ng serve",
+    "start": "ng serve --configuration development",
     "build": "Docker build -t teto-toys .",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
