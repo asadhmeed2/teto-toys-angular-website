@@ -1,5 +1,9 @@
 # TetoToys
 
+## Description
+
+Teto toys is an e-commerce website for selling toys.
+
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.16.
 
 ## Technologies
@@ -8,6 +12,7 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 - TypeScript 5.9.2
 - Node.js 20.20.2
 - codegraph 1.0.1 for tokens optimization
+- use ponytail for less tokens  usage
 
 ## Development server
 
