@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "./node_modules/.bin/ng serve --host 0.0.0.0",
-    "build": "ng build",
+    "dev" : "ng serve",
+    "build": "Docker build -t teto-toys .",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
