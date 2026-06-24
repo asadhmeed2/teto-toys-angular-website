@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AppMascotComponent } from '../../../../shared';
+import { AppMascotComponent, AuthService } from '../../../../shared';
 
 @Component({
   selector: 'app-login-page',
@@ -26,7 +26,10 @@ export class LoginPageComponent {
   protected readonly isLoading = signal(false);
   protected readonly errorMessage = signal<string | null>(null);
 
-  constructor(private readonly router: Router) {}
+  constructor(
+    private readonly router: Router,
+    private readonly authService: AuthService
+  ) {}
 
   protected togglePasswordVisibility(): void {
     this.isPasswordVisible.update((v) => !v);
@@ -67,7 +70,7 @@ export class LoginPageComponent {
         return data;
       })
       .then((data) => {
-        localStorage.setItem('access_token', data.access_token);
+        this.authService.setToken(data.access_token);
         this.isLoading.set(false);
         this.router.navigate(['/landing']);
       })
@@ -77,3 +80,4 @@ export class LoginPageComponent {
       });
   }
 }
+

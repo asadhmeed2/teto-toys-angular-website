@@ -1,6 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { AppMascotComponent } from '../../app-mascot';
+import { AppMascotComponent, AuthService } from '../../..';
 
 @Component({
   selector: 'app-header',
@@ -9,17 +9,10 @@ import { AppMascotComponent } from '../../app-mascot';
   styleUrl: './app-header.component.scss',
 })
 export class AppHeaderComponent {
-  protected readonly isLoggedIn = signal<boolean>(false);
 
-  constructor(private readonly router: Router) {
-    this.checkLoginStatus();
-  }
+  readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
 
-  protected checkLoginStatus(): void {
-    if (typeof window !== 'undefined' && window.localStorage) {
-      this.isLoggedIn.set(!!localStorage.getItem('access_token'));
-    }
-  }
 
   protected logout(): void {
     const token = localStorage.getItem('access_token');
@@ -30,10 +23,12 @@ export class AppHeaderComponent {
           'Authorization': `Bearer ${token}`
         }
       }).finally(() => {
-        localStorage.removeItem('access_token');
-        this.isLoggedIn.set(false);
+        this.authService.clearToken();
         this.router.navigate(['/login']);
       });
+    } else {
+      this.authService.clearToken();
+      this.router.navigate(['/login']);
     }
   }
 }
