@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppMascotComponent, AuthService } from '../../../../shared';
+import { AuthApiService } from './services/auth-api.service';
 
 @Component({
   selector: 'app-login-page',
@@ -28,8 +29,9 @@ export class LoginPageComponent {
 
   constructor(
     private readonly router: Router,
-    private readonly authService: AuthService
-  ) {}
+    private readonly authService: AuthService,
+    private readonly authApiService: AuthApiService
+  ) { }
 
   protected togglePasswordVisibility(): void {
     this.isPasswordVisible.update((v) => !v);
@@ -55,20 +57,8 @@ export class LoginPageComponent {
     const email = this.loginForm.controls.email.value;
     const password = this.loginForm.controls.password.value;
 
-    fetch('http://localhost:5063/api/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
-    })
-      .then(async (response) => {
-        const data = await response.json();
-        if (!response.ok) {
-          throw new Error(data.error_description || data.error || 'Login failed');
-        }
-        return data;
-      })
+    // ponytail: delegating the api call to the service using native fetch to keep dependencies light
+    this.authApiService.login(email, password)
       .then((data) => {
         this.authService.setToken(data.access_token);
         this.isLoading.set(false);

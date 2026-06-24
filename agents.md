@@ -11,4 +11,5 @@
 - **Modern Angular Control Flow**: Always use `@for`, `@if`, and `@switch` instead of legacy directives like `ngFor`, `ngIf`, and `ngSwitch`.
 - **Styling**: for editor textarea html content use html inline styles (no need to add scss file), for the rest of the components use `.scss` for styling, ensuring that styles are modular, reusable, and cleanly organized.
 - **Prompt Refinement**: Always use the `improve-prompt.prompt.md` workflow for refining prompts.
+- **API Calls**: Always use HttpClient in your api service implementation instead of using fetch and use Rxjs first value function always when subscribing to an http call.
 

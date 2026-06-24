@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AppMascotComponent, AuthService } from '../../..';
+import { AuthApiService } from '../../../../modules/Auth/pages/login-page/services/auth-api.service';
 
 @Component({
   selector: 'app-header',
@@ -11,18 +12,15 @@ import { AppMascotComponent, AuthService } from '../../..';
 export class AppHeaderComponent {
 
   readonly authService = inject(AuthService);
+  private readonly authApiService = inject(AuthApiService);
   private readonly router = inject(Router);
 
 
   protected logout(): void {
     const token = localStorage.getItem('access_token');
     if (token) {
-      fetch('http://localhost:5063/api/auth/logout', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      }).finally(() => {
+      // ponytail: delegate the logout network request to AuthApiService
+      this.authApiService.logout(token).finally(() => {
         this.authService.clearToken();
         this.router.navigate(['/login']);
       });
