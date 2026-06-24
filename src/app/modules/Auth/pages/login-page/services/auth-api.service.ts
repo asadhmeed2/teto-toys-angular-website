@@ -6,7 +6,8 @@ import { firstValueFrom } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthApiService {
-  private readonly baseUrl = 'http://localhost:8080/api/auth';
+  // private readonly baseUrl = 'http://localhost:8080/api/auth';
+  private readonly baseUrl = 'http://localhost:8000/api/auth'; // flask api
   private readonly http = inject(HttpClient);
 
   async login(email: string | null | undefined, password: string | null | undefined): Promise<any> {
