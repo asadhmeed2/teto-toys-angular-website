@@ -49,10 +49,31 @@ export class LoginPageComponent {
     this.isLoading.set(true);
     this.errorMessage.set(null);
 
-    // Mock API call
-    setTimeout(() => {
-      this.isLoading.set(false);
-      this.router.navigate(['/landing']);
-    }, 1500);
+    const email = this.loginForm.controls.email.value;
+    const password = this.loginForm.controls.password.value;
+
+    fetch('http://localhost:5063/api/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    })
+      .then(async (response) => {
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.error_description || data.error || 'Login failed');
+        }
+        return data;
+      })
+      .then((data) => {
+        localStorage.setItem('access_token', data.access_token);
+        this.isLoading.set(false);
+        this.router.navigate(['/landing']);
+      })
+      .catch((error) => {
+        this.isLoading.set(false);
+        this.errorMessage.set(error.message || 'Connection error. Please try again.');
+      });
   }
 }
