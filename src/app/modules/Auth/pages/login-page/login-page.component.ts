@@ -1,10 +1,11 @@
 import { Component, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AppMascotComponent } from '../../../../shared';
 
 @Component({
   selector: 'app-login-page',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, AppMascotComponent],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.scss',
 })

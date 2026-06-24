@@ -121,40 +121,7 @@
   justify-content: center;
 }
 
-.mascot-svg {
-  width: 100%;
-  height: 100%;
-  transition: var(--transition-smooth);
 
-  .normal-eyes {
-    display: block;
-  }
-  
-  .shy-eyes {
-    display: none;
-  }
-
-  .mascot-ear {
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-
-  &.password-focused {
-    .normal-eyes {
-      display: none;
-    }
-    .shy-eyes {
-      display: block;
-    }
-    .left {
-      transform: rotate(-12deg) translateY(2px);
-      transform-origin: 23px 22px;
-    }
-    .right {
-      transform: rotate(12deg) translateY(2px);
-      transform-origin: 77px 22px;
-    }
-  }
-}
 
 .login-title {
   font-family: var(--font-display);
