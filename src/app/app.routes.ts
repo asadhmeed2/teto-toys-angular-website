@@ -6,4 +6,9 @@ export const routes: Routes = [
     path: 'landing',
     loadComponent: () => import('./modules/landing').then((m) => m.LandingPageComponent),
   },
+  {
+    path: 'login',
+    loadComponent: () => import('./modules/Auth').then((m) => m.LoginPageComponent),
+  },
 ];
+
