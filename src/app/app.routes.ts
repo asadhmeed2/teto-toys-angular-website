@@ -10,5 +10,9 @@ export const routes: Routes = [
     path: 'login',
     loadComponent: () => import('./modules/Auth').then((m) => m.LoginPageComponent),
   },
+  {
+    path: 'admin',
+    loadComponent: () => import('./modules/admin').then((m) => m.AdminLandingPageComponent),
+  },
 ];
 
