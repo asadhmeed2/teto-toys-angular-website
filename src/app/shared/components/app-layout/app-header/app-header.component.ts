@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { AppMascotComponent, AuthService } from '../../..';
+import { AppMascotComponent } from '../../app-mascot';
+import { AuthService } from '../../../services';
 import { AuthApiService } from '../../../../modules/Auth/pages/login-page/services/auth-api.service';
 
 @Component({
