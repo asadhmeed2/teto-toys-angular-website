@@ -6,14 +6,15 @@ import { firstValueFrom } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthApiService {
-  // private readonly baseUrl = 'http://localhost:8080/api/auth';
-  private readonly baseUrl = 'http://localhost:8000/api/auth'; // flask api
+  private readonly baseUrl = 'http://localhost:8080/api/auth';
+  // private readonly baseUrl = 'http://localhost:8000/api/auth'; // flask api
   private readonly http = inject(HttpClient);
 
+  /** Login — browser automatically stores the refresh_token HTTP-only cookie from the response. */
   async login(email: string | null | undefined, password: string | null | undefined): Promise<any> {
     try {
       return await firstValueFrom(
-        this.http.post(`${this.baseUrl}/login`, { email, password })
+        this.http.post(`${this.baseUrl}/login`, { email, password }, { withCredentials: true })
       );
     } catch (err) {
       if (err instanceof HttpErrorResponse) {
@@ -23,14 +24,25 @@ export class AuthApiService {
     }
   }
 
-  async logout(token: string): Promise<any> {
+  /** Exchange the HTTP-only refresh_token cookie for a new access token. */
+  async refresh(): Promise<any> {
     try {
       return await firstValueFrom(
-        this.http.post(`${this.baseUrl}/logout`, {}, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        })
+        this.http.post(`${this.baseUrl}/refresh`, {}, { withCredentials: true })
+      );
+    } catch (err) {
+      if (err instanceof HttpErrorResponse) {
+        throw new Error(err.error?.error_description || err.error?.error || err.message || 'Token refresh failed');
+      }
+      throw err;
+    }
+  }
+
+  /** Logout — backend clears the refresh_token cookie server-side. */
+  async logout(): Promise<any> {
+    try {
+      return await firstValueFrom(
+        this.http.post(`${this.baseUrl}/logout`, {}, { withCredentials: true })
       );
     } catch (err) {
       if (err instanceof HttpErrorResponse) {

@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AppMascotComponent } from '../../app-mascot';
 import { AuthService } from '../../../services';
@@ -16,19 +16,20 @@ export class AppHeaderComponent {
   private readonly authApiService = inject(AuthApiService);
   private readonly router = inject(Router);
 
+  protected async logout(): Promise<void> {
+    // Refresh token is stored in an HTTP-only cookie — the browser sends it automatically.
+    // The backend clears the cookie on logout; no manual token handling needed here.
+    try {
 
-  protected logout(): void {
-    const token = localStorage.getItem('access_token');
-    if (token) {
-      // ponytail: delegate the logout network request to AuthApiService
-      this.authApiService.logout(token).finally(() => {
-        this.authService.clearToken();
-        this.router.navigate(['/login']);
-      });
-    } else {
+      await this.authApiService.logout()
+    } catch (error) {
+      console.error(error);
+
+    } finally {
       this.authService.clearToken();
+
       this.router.navigate(['/login']);
+
     }
   }
 }
-
