@@ -6,8 +6,9 @@ import { firstValueFrom } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthApiService {
-  private readonly baseUrl = 'http://localhost:8080/api/auth';
+  // private readonly baseUrl = 'http://localhost:8080/api/auth';
   // private readonly baseUrl = 'http://localhost:8000/api/auth'; // flask api
+  private readonly baseUrl = 'http://localhost:3000/api/auth'; // node api
   private readonly http = inject(HttpClient);
 
   /** Login — browser automatically stores the refresh_token HTTP-only cookie from the response. */
