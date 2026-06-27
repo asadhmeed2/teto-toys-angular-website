@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authRedirectGuard } from './shared/guards';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'landing', pathMatch: 'full' },
@@ -9,6 +10,7 @@ export const routes: Routes = [
   {
     path: 'login',
     loadComponent: () => import('./modules/Auth').then((m) => m.LoginPageComponent),
+    canActivate: [authRedirectGuard],
   },
   {
     path: 'admin',

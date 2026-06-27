@@ -7,8 +7,8 @@ import { firstValueFrom } from 'rxjs';
 })
 export class AuthApiService {
   // private readonly baseUrl = 'http://localhost:8080/api/auth';
-  // private readonly baseUrl = 'http://localhost:8000/api/auth'; // flask api
-  private readonly baseUrl = 'http://localhost:3000/api/auth'; // node api
+  private readonly baseUrl = 'http://localhost:8000/api/auth'; // flask api
+  // private readonly baseUrl = 'http://localhost:3000/api/auth'; // node api
   private readonly http = inject(HttpClient);
 
   /** Login — browser automatically stores the refresh_token HTTP-only cookie from the response. */
@@ -48,6 +48,23 @@ export class AuthApiService {
     } catch (err) {
       if (err instanceof HttpErrorResponse) {
         throw new Error(err.error?.error_description || err.error?.error || err.message || 'Logout failed');
+      }
+      throw err;
+    }
+  }
+
+  /** Verify the access token is still valid. Returns the user's email and role. */
+  async me(token: string): Promise<{ email: string; role: string }> {
+    try {
+      return await firstValueFrom(
+        this.http.get<{ email: string; role: string }>(`${this.baseUrl}/me`, {
+          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
+        })
+      );
+    } catch (err) {
+      if (err instanceof HttpErrorResponse) {
+        throw new Error(err.error?.error_description || err.error?.error || err.message || 'Auth check failed');
       }
       throw err;
     }
