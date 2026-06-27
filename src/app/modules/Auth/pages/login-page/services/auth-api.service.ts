@@ -58,7 +58,6 @@ export class AuthApiService {
     try {
       return await firstValueFrom(
         this.http.get<{ email: string; role: string }>(`${this.baseUrl}/me`, {
-          headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
         })
       );

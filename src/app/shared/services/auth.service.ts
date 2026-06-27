@@ -29,4 +29,11 @@ export class AuthService {
       this.isLoggedIn.set(false);
     }
   }
+
+  getToken(): string | null {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      return localStorage.getItem('access_token');
+    }
+    return null;
+  }
 }
