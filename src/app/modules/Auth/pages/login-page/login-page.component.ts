@@ -1,12 +1,12 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AppMascotComponent, AuthService } from '../../../../shared';
 import { AuthApiService } from './services/auth-api.service';
 
 @Component({
   selector: 'app-login-page',
-  imports: [ReactiveFormsModule, AppMascotComponent],
+  imports: [ReactiveFormsModule, RouterLink, AppMascotComponent],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.scss',
 })
@@ -26,12 +26,19 @@ export class LoginPageComponent {
   protected readonly isPasswordFocused = signal(false);
   protected readonly isLoading = signal(false);
   protected readonly errorMessage = signal<string | null>(null);
+  protected readonly successMessage = signal<string | null>(null);
+
+  private readonly route = inject(ActivatedRoute);
 
   constructor(
     private readonly router: Router,
     private readonly authService: AuthService,
     private readonly authApiService: AuthApiService
-  ) { }
+  ) {
+    if (this.route.snapshot.queryParamMap.get('registered') === 'true') {
+      this.successMessage.set('Account created successfully! Please sign in.');
+    }
+  }
 
   protected togglePasswordVisibility(): void {
     this.isPasswordVisible.update((v) => !v);

@@ -13,6 +13,11 @@ export const routes: Routes = [
     canActivate: [authRedirectGuard],
   },
   {
+    path: 'signup',
+    loadComponent: () => import('./modules/Auth').then((m) => m.SigninPageComponent),
+    canActivate: [authRedirectGuard],
+  },
+  {
     path: 'admin',
     loadComponent: () => import('./modules/admin').then((m) => m.AdminLandingPageComponent),
   },

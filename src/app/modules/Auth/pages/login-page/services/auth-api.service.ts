@@ -6,8 +6,8 @@ import { firstValueFrom } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthApiService {
-  // private readonly baseUrl = 'http://localhost:8080/api/auth';
-  private readonly baseUrl = 'http://localhost:8000/api/auth'; // flask api
+  private readonly baseUrl = 'http://localhost:8080/api/auth';
+  // private readonly baseUrl = 'http://localhost:8000/api/auth'; // flask api
   // private readonly baseUrl = 'http://localhost:3000/api/auth'; // node api
   private readonly http = inject(HttpClient);
 
@@ -64,6 +64,29 @@ export class AuthApiService {
     } catch (err) {
       if (err instanceof HttpErrorResponse) {
         throw new Error(err.error?.error_description || err.error?.error || err.message || 'Auth check failed');
+      }
+      throw err;
+    }
+  }
+
+  /** Register a new user account. */
+  async register(payload: {
+    first_name: string;
+    last_name: string;
+    email: string;
+    password: string;
+    confirm_password: string;
+    is_adult: boolean;
+    terms_accepted: boolean;
+    marketing_opt_in: boolean;
+  }): Promise<any> {
+    try {
+      return await firstValueFrom(
+        this.http.post(`${this.baseUrl}/register`, payload, { withCredentials: true })
+      );
+    } catch (err) {
+      if (err instanceof HttpErrorResponse) {
+        throw new Error(err.error?.error_description || err.error?.error || err.message || 'Registration failed');
       }
       throw err;
     }
