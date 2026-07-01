@@ -32,6 +32,14 @@ export class SessionInactivityService implements OnDestroy {
     this.ngZone.runOutsideAngular(() => {
       const activityEvents = ['mousemove', 'mousedown', 'keydown', 'scroll', 'click', 'touchstart'];
       const updateActivity = () => {
+
+        const timeSinceLastActivity = Date.now() - this.lastActivityTime;
+        if (timeSinceLastActivity >= this.INACTIVITY_LIMIT) {
+          this.ngZone.run(() => {
+            this.checkSessionValidity();
+          });
+        }
+
         this.lastActivityTime = Date.now();
       };
 
@@ -39,14 +47,14 @@ export class SessionInactivityService implements OnDestroy {
         window.addEventListener(event, updateActivity, { passive: true });
       });
 
-      this.checkIntervalId = setInterval(() => {
-        const timeSinceLastActivity = Date.now() - this.lastActivityTime;
-        if (timeSinceLastActivity >= this.INACTIVITY_LIMIT) {
-          this.ngZone.run(() => {
-            this.checkSessionValidity();
-          });
-        }
-      }, this.CHECK_INTERVAL);
+      // this.checkIntervalId = setInterval(() => {
+      //   const timeSinceLastActivity = Date.now() - this.lastActivityTime;
+      //   if (timeSinceLastActivity >= this.INACTIVITY_LIMIT) {
+      //     this.ngZone.run(() => {
+      //       this.checkSessionValidity();
+      //     });
+      //   }
+      // }, this.CHECK_INTERVAL);
     });
   }
 
@@ -57,11 +65,16 @@ export class SessionInactivityService implements OnDestroy {
     }
 
     try {
+      //TODO: show a message on the ui that the system is validating your session
       await this.authApiService.me(token);
     } catch (error) {
       console.warn('Session is invalid or expired. Clearing token.', error);
+      //TODO: show a message on the ui that the system is logging you out
+
       this.authService.clearToken();
-      this.router.navigate(['/login']);
+      // this.router.navigate(['/login']);
+    } finally {
+      //TODO: hide the message on the ui that the system is logging you out
     }
   }
 
