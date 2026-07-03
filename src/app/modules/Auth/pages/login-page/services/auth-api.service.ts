@@ -6,9 +6,9 @@ import { firstValueFrom } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthApiService {
-  // private readonly baseUrl = 'http://localhost:8080/api/auth';
+  private readonly baseUrl = 'http://localhost:8080/api/auth';
   // private readonly baseUrl = 'http://localhost:8000/api/auth'; // flask api
-  private readonly baseUrl = 'http://localhost:3000/api/auth'; // node api
+  // private readonly baseUrl = 'http://localhost:3000/api/auth'; // node api
   private readonly http = inject(HttpClient);
 
   /** Login — browser automatically stores the refresh_token HTTP-only cookie from the response. */
@@ -87,6 +87,34 @@ export class AuthApiService {
     } catch (err) {
       if (err instanceof HttpErrorResponse) {
         throw new Error(err.error?.error_description || err.error?.error || err.message || 'Registration failed');
+      }
+      throw err;
+    }
+  }
+
+  /** Send a password reset email. Always resolves — never reveals if the email exists. */
+  async forgotPassword(email: string): Promise<any> {
+    try {
+      return await firstValueFrom(
+        this.http.post(`${this.baseUrl}/forgot-password`, { email }, { withCredentials: true })
+      );
+    } catch (err) {
+      if (err instanceof HttpErrorResponse) {
+        throw new Error(err.error?.error_description || err.error?.error || err.message || 'Request failed');
+      }
+      throw err;
+    }
+  }
+
+  /** Reset password using the token from the email link. */
+  async resetPassword(token: string, new_password: string, confirm_password: string): Promise<any> {
+    try {
+      return await firstValueFrom(
+        this.http.post(`${this.baseUrl}/reset-password`, { token, new_password, confirm_password }, { withCredentials: true })
+      );
+    } catch (err) {
+      if (err instanceof HttpErrorResponse) {
+        throw new Error(err.error?.error_description || err.error?.error || err.message || 'Password reset failed');
       }
       throw err;
     }
