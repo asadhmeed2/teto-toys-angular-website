@@ -7,8 +7,8 @@ export interface Product {
   title: string;
   subtitle?: string | null;
   description?: string | null;
-  category: string;
-  subcategory?: string | null;
+  category: number;
+  subcategory?: number | null;
   price: number;
   image_urls: string[];
 }
@@ -38,6 +38,19 @@ export class LandingApiService {
     } catch (err) {
       if (err instanceof HttpErrorResponse) {
         throw new Error(err.error?.error_description || err.error?.error || err.message || 'Failed to fetch products');
+      }
+      throw err;
+    }
+  }
+
+  // ponytail: get categories lookup list using Angular HttpClient and async/await
+  async getCategories(): Promise<{ id: number; name: string; slug: string }[]> {
+    try {
+      const url = `${this.baseUrl}/categories`;
+      return await firstValueFrom(this.http.get<{ id: number; name: string; slug: string }[]>(url, { withCredentials: true }));
+    } catch (err) {
+      if (err instanceof HttpErrorResponse) {
+        throw new Error(err.error?.error_description || err.error?.error || err.message || 'Failed to fetch categories');
       }
       throw err;
     }
