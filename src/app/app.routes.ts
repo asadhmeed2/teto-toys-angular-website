@@ -17,10 +17,7 @@ export const routes: Routes = [
     loadComponent: () => import('./modules/Auth').then((m) => m.SigninPageComponent),
     canActivate: [authRedirectGuard],
   },
-  {
-    path: 'admin',
-    loadComponent: () => import('./modules/admin').then((m) => m.AdminLandingPageComponent),
-  },
+
   {
     path: 'forgot-password',
     loadComponent: () => import('./modules/Auth').then((m) => m.ForgotPasswordPageComponent),

@@ -12,8 +12,7 @@ export const authRedirectGuard: CanActivateFn = async () => {
   const authService = inject(AuthService);
   const authApiService = inject(AuthApiService);
   const router = inject(Router);
-
-  const token = typeof window !== 'undefined' ? localStorage.getItem('access_token') : null;
+  const token = authService.getToken();
 
   if (!token) {
     return true; // No token — allow access to /login

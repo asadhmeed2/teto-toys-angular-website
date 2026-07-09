@@ -1,6 +1,6 @@
 import { Component, signal, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AppLayoutComponent, SessionInactivityService } from './shared';
+import { AppLayoutComponent } from './shared';
 
 @Component({
   selector: 'app-root',
@@ -10,5 +10,4 @@ import { AppLayoutComponent, SessionInactivityService } from './shared';
 })
 export class App {
   protected readonly title = signal('teto-toys');
-  private readonly inactivityService = inject(SessionInactivityService);
 }

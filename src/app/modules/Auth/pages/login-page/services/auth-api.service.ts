@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+import { parseHttpError } from '../../../../../shared/utils/error';
 
 @Injectable({
   providedIn: 'root',
@@ -18,10 +19,7 @@ export class AuthApiService {
         this.http.post(`${this.baseUrl}/login`, { email, password }, { withCredentials: true })
       );
     } catch (err) {
-      if (err instanceof HttpErrorResponse) {
-        throw new Error(err.error?.error_description || err.error?.error || err.message || 'Login failed');
-      }
-      throw err;
+      throw parseHttpError(err, 'Login failed');
     }
   }
 
@@ -32,10 +30,7 @@ export class AuthApiService {
         this.http.post(`${this.baseUrl}/refresh`, {}, { withCredentials: true })
       );
     } catch (err) {
-      if (err instanceof HttpErrorResponse) {
-        throw new Error(err.error?.error_description || err.error?.error || err.message || 'Token refresh failed');
-      }
-      throw err;
+      throw parseHttpError(err, 'Token refresh failed');
     }
   }
 
@@ -46,10 +41,7 @@ export class AuthApiService {
         this.http.post(`${this.baseUrl}/logout`, {}, { withCredentials: true })
       );
     } catch (err) {
-      if (err instanceof HttpErrorResponse) {
-        throw new Error(err.error?.error_description || err.error?.error || err.message || 'Logout failed');
-      }
-      throw err;
+      throw parseHttpError(err, 'Logout failed');
     }
   }
 
@@ -62,10 +54,7 @@ export class AuthApiService {
         })
       );
     } catch (err) {
-      if (err instanceof HttpErrorResponse) {
-        throw new Error(err.error?.error_description || err.error?.error || err.message || 'Auth check failed');
-      }
-      throw err;
+      throw parseHttpError(err, 'Auth check failed');
     }
   }
 
@@ -85,10 +74,7 @@ export class AuthApiService {
         this.http.post(`${this.baseUrl}/register`, payload, { withCredentials: true })
       );
     } catch (err) {
-      if (err instanceof HttpErrorResponse) {
-        throw new Error(err.error?.error_description || err.error?.error || err.message || 'Registration failed');
-      }
-      throw err;
+      throw parseHttpError(err, 'Registration failed');
     }
   }
 
@@ -99,10 +85,7 @@ export class AuthApiService {
         this.http.post(`${this.baseUrl}/forgot-password`, { email }, { withCredentials: true })
       );
     } catch (err) {
-      if (err instanceof HttpErrorResponse) {
-        throw new Error(err.error?.error_description || err.error?.error || err.message || 'Request failed');
-      }
-      throw err;
+      throw parseHttpError(err, 'Request failed');
     }
   }
 
@@ -113,10 +96,7 @@ export class AuthApiService {
         this.http.post(`${this.baseUrl}/reset-password`, { token, new_password, confirm_password }, { withCredentials: true })
       );
     } catch (err) {
-      if (err instanceof HttpErrorResponse) {
-        throw new Error(err.error?.error_description || err.error?.error || err.message || 'Password reset failed');
-      }
-      throw err;
+      throw parseHttpError(err, 'Password reset failed');
     }
   }
 }

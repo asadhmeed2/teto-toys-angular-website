@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+import { parseHttpError } from '../../../../../shared/utils/error';
 
 export interface Product {
   product_id: string;
@@ -36,10 +37,7 @@ export class LandingApiService {
       const url = `${this.baseUrl}/products?page=${page}&pageSize=${pageSize}&search=${encodeURIComponent(search)}`;
       return await firstValueFrom(this.http.get<ProductsResponse>(url, { withCredentials: true }));
     } catch (err) {
-      if (err instanceof HttpErrorResponse) {
-        throw new Error(err.error?.error_description || err.error?.error || err.message || 'Failed to fetch products');
-      }
-      throw err;
+      throw parseHttpError(err, 'Failed to fetch products');
     }
   }
 
@@ -49,10 +47,7 @@ export class LandingApiService {
       const url = `${this.baseUrl}/categories`;
       return await firstValueFrom(this.http.get<{ id: number; name: string; slug: string }[]>(url, { withCredentials: true }));
     } catch (err) {
-      if (err instanceof HttpErrorResponse) {
-        throw new Error(err.error?.error_description || err.error?.error || err.message || 'Failed to fetch categories');
-      }
-      throw err;
+      throw parseHttpError(err, 'Failed to fetch categories');
     }
   }
 }
