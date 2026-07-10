@@ -32,9 +32,9 @@ export class LandingApiService {
   private readonly http = inject(HttpClient);
 
   // ponytail: get products list using Angular HttpClient and async/await
-  async getProducts(page = 1, pageSize = 12, search = ''): Promise<ProductsResponse> {
+  async getProducts(page = 1, pageSize = 12, search = '', category = 'All'): Promise<ProductsResponse> {
     try {
-      const url = `${this.baseUrl}/products?page=${page}&pageSize=${pageSize}&search=${encodeURIComponent(search)}`;
+      const url = `${this.baseUrl}/products?page=${page}&pageSize=${pageSize}&search=${encodeURIComponent(search)}&category=${encodeURIComponent(category)}`;
       return await firstValueFrom(this.http.get<ProductsResponse>(url, { withCredentials: true }));
     } catch (err) {
       throw parseHttpError(err, 'Failed to fetch products');

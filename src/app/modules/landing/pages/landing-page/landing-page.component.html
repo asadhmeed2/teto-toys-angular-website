@@ -15,6 +15,39 @@
       <div class="section-divider"></div>
     </div>
 
+    <!-- Controls Section: Tabs & Search -->
+    <div class="controls-row">
+      <nav class="categories-tabs">
+        <button 
+          class="tab-btn" 
+          [class.active]="selectedCategory() === 'All'"
+          (click)="selectCategory('All')">
+          All
+        </button>
+        @for (cat of categories(); track cat.id) {
+          <button 
+            class="tab-btn" 
+            [class.active]="selectedCategory() === cat.id.toString()"
+            (click)="selectCategory(cat.id.toString())">
+            {{ cat.name }}
+          </button>
+        }
+      </nav>
+
+      <div class="search-wrapper">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input 
+          type="text" 
+          class="search-input" 
+          placeholder="Search products by title..."
+          [value]="searchQuery()"
+          (keyup)="onSearchKeyup($event)" />
+      </div>
+    </div>
+
     @if (isLoading()) {
       <div class="loading-state">
         <div class="spinner"></div>
