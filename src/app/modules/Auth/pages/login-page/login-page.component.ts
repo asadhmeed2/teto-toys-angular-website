@@ -66,8 +66,8 @@ export class LoginPageComponent {
 
     // ponytail: delegating the api call to the service using native fetch to keep dependencies light
     this.authApiService.login(email, password)
-      .then((data) => {
-        this.authService.setToken(data.access_token);
+      .then((data) => this.authService.establishSession(data.access_token))
+      .then(() => {
         this.isLoading.set(false);
         this.router.navigate(['/landing']);
       })

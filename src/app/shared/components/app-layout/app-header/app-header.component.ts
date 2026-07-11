@@ -36,7 +36,7 @@ export class AppHeaderComponent {
     } catch (error) {
       console.error(error);
     } finally {
-      this.authService.clearToken();
+      this.authService.clearSession();
       this.router.navigate(['/login']);
     }
   }

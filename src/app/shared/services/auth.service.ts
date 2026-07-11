@@ -1,55 +1,74 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, inject } from '@angular/core';
+import { AuthApiService, UserProfile } from '../../modules/Auth/pages/login-page/services/auth-api.service';
 
+/**
+ * Current-user / session state. The access token lives in memory only (never localStorage) —
+ * it is re-hydrated on app start from the httpOnly refresh_token cookie via tryRestoreSession().
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  readonly isLoggedIn = signal<boolean>(false);
-  private readonly _token = signal<string | null>(null);
+  private readonly authApiService = inject(AuthApiService);
 
+  private readonly _currentUser = signal<UserProfile | null>(null);
+  private readonly _accessToken = signal<string | null>(null);
+
+  readonly currentUser = this._currentUser.asReadonly();
+
+  /** True once we hold an access token, independent of whether the profile fetch has resolved. */
+  readonly isAuthenticated = computed<boolean>(() => !!this._accessToken());
+
+  /** Kept as an alias so existing templates (`authService.isLoggedIn()`) keep working. */
+  readonly isLoggedIn = this.isAuthenticated;
+
+  /** Full display name — sourced from the profile (/me), never the raw user id. */
   readonly username = computed<string>(() => {
-    const token = this._token();
-    if (!token) return '';
-    try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      return payload.email ?? payload.sub ?? payload.name ?? '';
-    } catch {
-      return '';
-    }
+    const user = this._currentUser();
+    return user ? [user.firstName, user.lastName].filter(Boolean).join(' ') : '';
   });
 
-  constructor() {
-    this.checkLoginStatus();
+  getAccessToken(): string | null {
+    return this._accessToken();
   }
 
-  checkLoginStatus(): void {
-    if (typeof window !== 'undefined' && window.localStorage) {
-      const token = localStorage.getItem('access_token');
-      this._token.set(token);
-      this.isLoggedIn.set(!!token);
+  /** Sets the access token only, e.g. after a silent refresh — the current profile is left untouched. */
+  setAccessToken(token: string): void {
+    this._accessToken.set(token);
+  }
+
+  /** Store the token and fetch the profile behind it. Used after login and on session restore. */
+  async establishSession(accessToken: string): Promise<void> {
+    this._accessToken.set(accessToken);
+    try {
+      const profile = await this.authApiService.me();
+      this._currentUser.set(profile);
+    } catch {
+      // The access token is still valid at this point — a transient /me failure shouldn't
+      // block login. The profile will be picked up on the next session restore.
+      this._currentUser.set(null);
     }
   }
 
-  setToken(token: string): void {
-    if (typeof window !== 'undefined' && window.localStorage) {
-      localStorage.setItem('access_token', token);
-      this._token.set(token);
-      this.isLoggedIn.set(true);
+  /** Exchange the httpOnly refresh_token cookie for a new access token, updating the signal. */
+  async refreshAccessToken(): Promise<string> {
+    const { access_token } = await this.authApiService.refresh();
+    this._accessToken.set(access_token);
+    return access_token;
+  }
+
+  /** Attempt to hydrate the session from the refresh cookie on app start. Never throws. */
+  async tryRestoreSession(): Promise<void> {
+    try {
+      const token = await this.refreshAccessToken();
+      await this.establishSession(token);
+    } catch {
+      this.clearSession();
     }
   }
 
-  clearToken(): void {
-    if (typeof window !== 'undefined' && window.localStorage) {
-      localStorage.removeItem('access_token');
-      this._token.set(null);
-      this.isLoggedIn.set(false);
-    }
-  }
-
-  getToken(): string | null {
-    if (typeof window !== 'undefined' && window.localStorage) {
-      return localStorage.getItem('access_token');
-    }
-    return null;
+  clearSession(): void {
+    this._accessToken.set(null);
+    this._currentUser.set(null);
   }
 }

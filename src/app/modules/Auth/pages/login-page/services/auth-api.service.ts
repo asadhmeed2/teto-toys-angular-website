@@ -3,6 +3,19 @@ import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { parseHttpError } from '../../../../../shared/utils/error';
 
+export interface TokenResponse {
+  access_token: string;
+  token_type: string;
+  expires_in: number;
+}
+
+export interface UserProfile {
+  userId: string;
+  role: string;
+  firstName: string;
+  lastName: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -13,10 +26,10 @@ export class AuthApiService {
   private readonly http = inject(HttpClient);
 
   /** Login — browser automatically stores the refresh_token HTTP-only cookie from the response. */
-  async login(email: string | null | undefined, password: string | null | undefined): Promise<any> {
+  async login(email: string | null | undefined, password: string | null | undefined): Promise<TokenResponse> {
     try {
       return await firstValueFrom(
-        this.http.post(`${this.baseUrl}/login`, { email, password }, { withCredentials: true })
+        this.http.post<TokenResponse>(`${this.baseUrl}/login`, { email, password }, { withCredentials: true })
       );
     } catch (err) {
       throw parseHttpError(err, 'Login failed');
@@ -24,10 +37,10 @@ export class AuthApiService {
   }
 
   /** Exchange the HTTP-only refresh_token cookie for a new access token. */
-  async refresh(): Promise<any> {
+  async refresh(): Promise<TokenResponse> {
     try {
       return await firstValueFrom(
-        this.http.post(`${this.baseUrl}/refresh`, {}, { withCredentials: true })
+        this.http.post<TokenResponse>(`${this.baseUrl}/refresh`, {}, { withCredentials: true })
       );
     } catch (err) {
       throw parseHttpError(err, 'Token refresh failed');
@@ -45,13 +58,11 @@ export class AuthApiService {
     }
   }
 
-  /** Verify the access token is still valid. Returns the user's email and role. */
-  async me(token: string): Promise<{ email: string; role: string }> {
+  /** Verify the access token is still valid. Returns the user's id, role, first and last name. */
+  async me(): Promise<UserProfile> {
     try {
       return await firstValueFrom(
-        this.http.get<{ email: string; role: string }>(`${this.baseUrl}/me`, {
-          withCredentials: true,
-        })
+        this.http.get<UserProfile>(`${this.baseUrl}/me`, { withCredentials: true })
       );
     } catch (err) {
       throw parseHttpError(err, 'Auth check failed');
