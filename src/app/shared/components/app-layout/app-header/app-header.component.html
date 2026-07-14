@@ -29,7 +29,7 @@
       </button>
 
       <!-- User Menu -->
-      @if (authService.isLoggedIn()) {
+      @if (authService.isAuthenticated()) {
       <div class="user-menu-wrapper">
         <button class="user-menu-trigger" (click)="toggleMenu()" [class.open]="menuOpen()" aria-label="User menu" id="user-menu-trigger">
           <span class="user-avatar">

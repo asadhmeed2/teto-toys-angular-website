@@ -16,11 +16,7 @@ export class AuthService {
 
   readonly currentUser = this._currentUser.asReadonly();
 
-  /** True once we hold an access token, independent of whether the profile fetch has resolved. */
   readonly isAuthenticated = computed<boolean>(() => !!this._accessToken());
-
-  /** Kept as an alias so existing templates (`authService.isLoggedIn()`) keep working. */
-  readonly isLoggedIn = this.isAuthenticated;
 
   /** Full display name — sourced from the profile (/me), never the raw user id. */
   readonly username = computed<string>(() => {

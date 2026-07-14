@@ -27,7 +27,7 @@ export class LandingPageComponent implements OnInit {
   protected readonly favoriteIds = signal<Set<string>>(new Set());
   protected readonly togglingFavoriteId = signal<string | null>(null);
 
-  private searchTimeout?: any;
+  private searchTimeout?: ReturnType<typeof setTimeout>;
 
   async ngOnInit(): Promise<void> {
     this.isLoading.set(true);
@@ -53,15 +53,10 @@ export class LandingPageComponent implements OnInit {
     this.products.set(response.items || []);
   }
 
-  // ponytail: load categories into a records dictionary lookup map
   async loadCategories(): Promise<void> {
     const list = await this.landingApiService.getCategories();
     this.categories.set(list || []);
-    const map: Record<number, string> = {};
-    for (const cat of list) {
-      map[cat.id] = cat.name;
-    }
-    this.categoryMap.set(map);
+    this.categoryMap.set(Object.fromEntries(list.map(c => [c.id, c.name])));
   }
 
   // Load just the set of favourite product IDs (lightweight)

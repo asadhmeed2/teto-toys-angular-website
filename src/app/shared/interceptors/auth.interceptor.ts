@@ -5,6 +5,7 @@ import { BehaviorSubject, throwError, from } from 'rxjs';
 import { catchError, filter, switchMap, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
+// ponytail: module-level state — shared across all tabs in the same JS context; fine for SPA, breaks under multi-tab SSE if ever added
 let isRefreshing = false;
 const refreshTokenSubject = new BehaviorSubject<string | null>(null);
 
