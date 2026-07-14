@@ -23,7 +23,10 @@
 
   --text-primary: #0f172a;
   --text-secondary: #475569;
-  --text-muted: #94a3b8;
+  --text-muted: #64748b;
+  /* ponytail: darkened from #94a3b8 (~2.8:1 on white) to hit WCAG AA 4.5:1 for body/placeholder text */
+  --text-accent: #067a5c;
+  /* AA-compliant (~5.3:1 on white) text-safe variant of --brand-green; use for readable text, keep --brand-green for fills/gradients */
 
   /* Font */
   --font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -67,4 +70,10 @@ a {
 
 button {
   font-family: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand-green);
+  outline-offset: 2px;
+  border-radius: 4px;
 }

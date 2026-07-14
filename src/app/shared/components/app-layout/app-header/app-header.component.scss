@@ -53,7 +53,7 @@
       font-size: 1.45rem;
       font-weight: 700;
       letter-spacing: -0.01em;
-      color: var(--brand-green);
+      color: var(--text-accent);
       line-height: 1.1;
     }
 
@@ -113,8 +113,8 @@
     }
 
     &.active {
-      color: var(--brand-green);
-      
+      color: var(--text-accent);
+
       &::after {
         width: 60%;
       }

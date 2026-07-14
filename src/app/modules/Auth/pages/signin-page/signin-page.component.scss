@@ -179,7 +179,7 @@
   background-color: var(--bg-primary);
   padding: 2px 8px;
   border-radius: 4px;
-  color: var(--brand-green);
+  color: var(--text-accent);
   font-weight: 500;
 }
 
@@ -333,7 +333,7 @@
 }
 
 .inline-link {
-  color: var(--brand-green);
+  color: var(--text-accent);
   font-weight: 500;
   text-decoration: underline;
   text-decoration-color: transparent;
@@ -402,7 +402,7 @@
 }
 
 .login-link {
-  color: var(--brand-green);
+  color: var(--text-accent);
   font-weight: 600;
 
   &:hover {

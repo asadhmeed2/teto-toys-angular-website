@@ -62,7 +62,7 @@ export class LandingPageComponent implements OnInit {
     this.categoryMap.set(Object.fromEntries(list.map(c => [c.id, c.name])));
   }
 
-  // Load just the set of favourite product IDs (lightweight)
+  // Load just the set of favorite product IDs (lightweight)
   async loadFavoriteIds(): Promise<void> {
     const ids = await this.favoritesApi.getFavoriteIds();
     this.favoriteIds.set(new Set(ids));
