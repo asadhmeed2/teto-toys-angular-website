@@ -1,12 +1,12 @@
 import { Component, inject, signal, HostListener } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AppMascotComponent } from '../../app-mascot';
 import { AuthService } from '../../../services';
 import { AuthApiService } from '../../../../modules/Auth/pages/login-page/services/auth-api.service';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, AppMascotComponent],
+  imports: [RouterLink, RouterLinkActive, AppMascotComponent],
   templateUrl: './app-header.component.html',
   styleUrl: './app-header.component.scss',
 })

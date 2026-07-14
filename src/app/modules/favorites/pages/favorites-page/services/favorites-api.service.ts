@@ -29,17 +29,19 @@ export class FavoritesApiService {
   async getFavorites(): Promise<FavoritesResponse> {
     try {
       return await firstValueFrom(
-        this.http.get<FavoritesResponse>(`${this.baseUrl}/favorites`, { withCredentials: true })
+        this.http.get<FavoritesResponse>(`${this.baseUrl}/favorites`, { withCredentials: true }),
       );
     } catch (err) {
-      throw parseHttpError(err, 'Failed to fetch favourites');
+      throw parseHttpError(err, 'Failed to fetch favorites');
     }
   }
 
   async getFavoriteIds(): Promise<string[]> {
     try {
       const res = await firstValueFrom(
-        this.http.get<FavoriteIdsResponse>(`${this.baseUrl}/favorites/ids`, { withCredentials: true })
+        this.http.get<FavoriteIdsResponse>(`${this.baseUrl}/favorites/ids`, {
+          withCredentials: true,
+        }),
       );
       return res.ids ?? [];
     } catch {
@@ -50,20 +52,26 @@ export class FavoritesApiService {
   async addFavorite(productId: string): Promise<FavoriteToggleResponse> {
     try {
       return await firstValueFrom(
-        this.http.post<FavoriteToggleResponse>(`${this.baseUrl}/favorites/${productId}`, {}, { withCredentials: true })
+        this.http.post<FavoriteToggleResponse>(
+          `${this.baseUrl}/favorites/${productId}`,
+          {},
+          { withCredentials: true },
+        ),
       );
     } catch (err) {
-      throw parseHttpError(err, 'Failed to add to favourites');
+      throw parseHttpError(err, 'Failed to add to favorites');
     }
   }
 
   async removeFavorite(productId: string): Promise<FavoriteToggleResponse> {
     try {
       return await firstValueFrom(
-        this.http.delete<FavoriteToggleResponse>(`${this.baseUrl}/favorites/${productId}`, { withCredentials: true })
+        this.http.delete<FavoriteToggleResponse>(`${this.baseUrl}/favorites/${productId}`, {
+          withCredentials: true,
+        }),
       );
     } catch (err) {
-      throw parseHttpError(err, 'Failed to remove from favourites');
+      throw parseHttpError(err, 'Failed to remove from favorites');
     }
   }
 }

@@ -14,18 +14,6 @@
   margin-bottom: 48px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 
-  .hero-glow {
-    position: absolute;
-    top: -50%;
-    right: -20%;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(8, 184, 128, 0.15) 0%, rgba(11, 240, 223, 0.05) 50%, rgba(0, 0, 0, 0) 100%);
-    pointer-events: none;
-    border-radius: 50%;
-    filter: blur(40px);
-  }
-
   .hero-content {
     position: relative;
     z-index: 1;
@@ -40,10 +28,8 @@
     margin: 0 0 12px 0;
     line-height: 1.2;
 
-    .gradient-text {
-      background: var(--accent-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    .accent-text {
+      color: var(--brand-green);
     }
   }
 
@@ -66,13 +52,6 @@
     font-weight: 600;
     color: var(--text-primary);
     margin: 0 0 8px 0;
-  }
-
-  .section-divider {
-    height: 4px;
-    width: 60px;
-    background: var(--accent-gradient);
-    border-radius: 2px;
   }
 }
 
@@ -102,7 +81,7 @@
   font-size: 14px;
   font-weight: 600;
   color: var(--text-secondary);
-  background: var(--bg-glass);
+  background: var(--bg-secondary);
   border: 1px solid var(--border-glass);
   border-radius: 30px;
   cursor: pointer;
@@ -152,7 +131,7 @@
   font-size: 14px;
   font-family: inherit;
   color: var(--text-primary);
-  background: var(--bg-glass);
+  background: var(--bg-secondary);
   border: 1px solid var(--border-glass);
   border-radius: 30px;
   outline: none;
@@ -182,7 +161,7 @@
 
 // Product Card
 .product-card {
-  background: var(--bg-glass);
+  background: var(--bg-primary);
   border: 1px solid var(--border-glass);
   border-radius: var(--border-radius-md);
   overflow: hidden;
@@ -393,7 +372,7 @@
   padding: 60px 20px;
   text-align: center;
   color: var(--text-secondary);
-  background: var(--bg-glass);
+  background: var(--bg-secondary);
   border: 1px solid var(--border-glass);
   border-radius: var(--border-radius-md);
 

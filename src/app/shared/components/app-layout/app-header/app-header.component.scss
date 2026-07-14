@@ -157,33 +157,6 @@
     }
   }
 
-  /* Cart Badge Styles */
-  .cart-btn {
-    .cart-badge {
-      position: absolute;
-      top: 2px;
-      right: 2px;
-      background: var(--brand-red);
-      color: white;
-      font-size: 0.65rem;
-      font-weight: 800;
-      min-width: 17px;
-      height: 17px;
-      padding: 0 4px;
-      border-radius: 99px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 2px solid var(--bg-primary);
-      box-sizing: border-box;
-      box-shadow: 0 2px 4px rgba(255, 51, 77, 0.2);
-    }
-
-    &:hover {
-      color: var(--brand-red);
-    }
-  }
-
   /* User Menu */
   .user-menu-wrapper {
     position: relative;
@@ -196,7 +169,7 @@
     padding: 0.375rem 0.75rem 0.375rem 0.5rem;
     border-radius: 99px;
     border: 1.5px solid var(--border-glass);
-    background: var(--bg-glass);
+    background: var(--bg-secondary);
     cursor: pointer;
     transition: var(--transition-smooth);
     font-family: var(--font-family);

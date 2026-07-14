@@ -8,6 +8,10 @@ export const routes: Routes = [
     loadComponent: () => import('./modules/landing').then((m) => m.LandingPageComponent),
   },
   {
+    path: 'product/:id',
+    loadComponent: () => import('./modules/landing').then((m) => m.ProductDetailPageComponent),
+  },
+  {
     path: 'login',
     loadComponent: () => import('./modules/Auth').then((m) => m.LoginPageComponent),
     canActivate: [authRedirectGuard],
@@ -28,9 +32,8 @@ export const routes: Routes = [
     loadComponent: () => import('./modules/Auth').then((m) => m.ResetPasswordPageComponent),
   },
   {
-    path: 'favourites',
+    path: 'favorites',
     loadComponent: () => import('./modules/favorites').then((m) => m.FavoritesPageComponent),
     canActivate: [authGuard],
   },
 ];
-

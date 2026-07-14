@@ -1,5 +1,6 @@
 import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
+import { Router } from '@angular/router';
 import { LandingApiService, Product } from './services/landing-api.service';
 import { FavoritesApiService } from '../../../favorites/pages/favorites-page/services/favorites-api.service';
 import { AuthService } from '../../../../shared/services/auth.service';
@@ -13,6 +14,7 @@ import { AuthService } from '../../../../shared/services/auth.service';
 export class LandingPageComponent implements OnInit {
   private readonly landingApiService = inject(LandingApiService);
   private readonly favoritesApi = inject(FavoritesApiService);
+  private readonly router = inject(Router);
   protected readonly authService = inject(AuthService);
 
   protected readonly products = signal<Product[]>([]);
@@ -63,6 +65,10 @@ export class LandingPageComponent implements OnInit {
   async loadFavoriteIds(): Promise<void> {
     const ids = await this.favoritesApi.getFavoriteIds();
     this.favoriteIds.set(new Set(ids));
+  }
+
+  protected viewDetails(product: Product): void {
+    this.router.navigate(['/product', product.product_id], { state: { product } });
   }
 
   protected isFavorite(productId: string): boolean {

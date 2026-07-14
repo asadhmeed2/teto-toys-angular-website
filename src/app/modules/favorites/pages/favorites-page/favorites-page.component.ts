@@ -1,5 +1,5 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
 import { FavoritesApiService } from './services/favorites-api.service';
 import { Product } from '../../../landing/pages/landing-page/services/landing-api.service';
@@ -13,6 +13,7 @@ import { Product } from '../../../landing/pages/landing-page/services/landing-ap
 })
 export class FavoritesPageComponent implements OnInit {
   private readonly favoritesApi = inject(FavoritesApiService);
+  private readonly router = inject(Router);
 
   protected readonly favorites = signal<Product[]>([]);
   protected readonly isLoading = signal(true);
@@ -30,10 +31,14 @@ export class FavoritesPageComponent implements OnInit {
       const res = await this.favoritesApi.getFavorites();
       this.favorites.set(res.items ?? []);
     } catch (err: any) {
-      this.errorMessage.set(err.message || 'Failed to load favourites.');
+      this.errorMessage.set(err.message || 'Failed to load favorites.');
     } finally {
       this.isLoading.set(false);
     }
+  }
+
+  protected viewDetails(product: Product): void {
+    this.router.navigate(['/product', product.product_id], { state: { product } });
   }
 
   async removeFromFavorites(productId: string): Promise<void> {
@@ -41,9 +46,9 @@ export class FavoritesPageComponent implements OnInit {
     this.removingId.set(productId);
     try {
       await this.favoritesApi.removeFavorite(productId);
-      this.favorites.update(list => list.filter(p => p.product_id !== productId));
+      this.favorites.update((list) => list.filter((p) => p.product_id !== productId));
     } catch (err: any) {
-      alert(err.message || 'Failed to remove from favourites.');
+      alert(err.message || 'Failed to remove from favorites.');
     } finally {
       this.removingId.set(null);
     }

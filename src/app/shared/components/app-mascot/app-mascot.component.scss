@@ -16,7 +16,7 @@
   }
 
   .mascot-ear {
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   &.password-focused {
@@ -34,5 +34,12 @@
       transform: rotate(12deg) translateY(2px);
       transform-origin: 77px 22px;
     }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mascot-svg,
+  .mascot-svg .mascot-ear {
+    transition-duration: 0.01ms;
   }
 }
