@@ -256,6 +256,51 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
+
+    .favorite-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(4px);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      color: rgba(255, 255, 255, 0.6);
+
+      svg {
+        width: 18px;
+        height: 18px;
+        transition: var(--transition-smooth);
+      }
+
+      &.is-favorite {
+        color: #ef4444;
+        background: rgba(239, 68, 68, 0.15);
+      }
+
+      &:hover:not(:disabled):not(.is-favorite) {
+        background: rgba(239, 68, 68, 0.15);
+        color: #ef4444;
+        transform: scale(1.1);
+      }
+
+      &:hover:not(:disabled).is-favorite {
+        background: rgba(239, 68, 68, 0.25);
+        transform: scale(1.1);
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
   }
 
   .card-details {

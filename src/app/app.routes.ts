@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { authRedirectGuard } from './shared/guards';
+import { authRedirectGuard, authGuard } from './shared/guards';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'landing', pathMatch: 'full' },
@@ -26,6 +26,11 @@ export const routes: Routes = [
   {
     path: 'reset-password',
     loadComponent: () => import('./modules/Auth').then((m) => m.ResetPasswordPageComponent),
+  },
+  {
+    path: 'favourites',
+    loadComponent: () => import('./modules/favorites').then((m) => m.FavoritesPageComponent),
+    canActivate: [authGuard],
   },
 ];
 
