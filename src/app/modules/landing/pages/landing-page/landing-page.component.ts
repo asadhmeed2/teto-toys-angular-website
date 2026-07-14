@@ -1,13 +1,13 @@
-import { Component, OnInit, inject, signal, computed } from '@angular/core';
-import { CurrencyPipe } from '@angular/common';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { LandingApiService, Product } from './services/landing-api.service';
 import { FavoritesApiService } from '../../../favorites/pages/favorites-page/services/favorites-api.service';
 import { AuthService, ToastService } from '../../../../shared/services';
+import { ProductsCardsListComponent } from '../../components/products-cards-list';
 
 @Component({
   selector: 'app-landing-page',
-  imports: [CurrencyPipe],
+  imports: [ProductsCardsListComponent],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.scss',
 })
@@ -72,15 +72,11 @@ export class LandingPageComponent implements OnInit {
     this.router.navigate(['/product', product.product_id], { state: { product } });
   }
 
-  protected isFavorite(productId: string): boolean {
-    return this.favoriteIds().has(productId);
-  }
-
-  protected async toggleFavorite(event: MouseEvent, product: Product): Promise<void> {
+  protected async toggleFavorite({ event, product }: { event: MouseEvent; product: Product }): Promise<void> {
     event.stopPropagation();
     const productId = product.product_id;
     if (!this.authService.isAuthenticated() || this.togglingFavoriteId()) return;
-    const wasFavorite = this.isFavorite(productId);
+    const wasFavorite = this.favoriteIds().has(productId);
     this.togglingFavoriteId.set(productId);
     try {
       if (wasFavorite) {
