@@ -1,3 +1,5 @@
+@use '../../styles/breakpoints' as bp;
+
 .layout-wrapper {
   display: flex;
   flex-direction: column;
@@ -11,11 +13,15 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-
-
 }
 
-@media (max-width: 768px) {
+@media (max-width: bp.$bp-lg) {
+  .main-content {
+    padding: 0 0.5rem;
+  }
+}
+
+@media (max-width: bp.$bp-md) {
   .main-content {
     padding: 1.5rem 1rem;
   }

@@ -1,7 +1,13 @@
+@use '../../../../shared/styles/breakpoints' as bp;
+
 .favorites-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 40px 20px;
+
+  @media (max-width: bp.$bp-sm) {
+    padding: 28px 16px;
+  }
 }
 
 // Page Header
@@ -50,6 +56,15 @@
     height: 32px;
     color: #ef4444;
     flex-shrink: 0;
+  }
+
+  @media (max-width: bp.$bp-sm) {
+    font-size: 24px;
+
+    .heart-icon {
+      width: 24px;
+      height: 24px;
+    }
   }
 }
 
@@ -160,6 +175,11 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 30px;
+
+  @media (max-width: bp.$bp-sm) {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
 }
 
 // Product Card
@@ -331,5 +351,10 @@
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
+  }
+
+  @media (pointer: coarse) {
+    width: 44px;
+    height: 44px;
   }
 }

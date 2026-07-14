@@ -1,7 +1,13 @@
+@use '../../../../shared/styles/breakpoints' as bp;
+
 .product-detail-container {
   max-width: 1000px;
   margin: 0 auto;
   padding: 40px 20px;
+
+  @media (max-width: bp.$bp-sm) {
+    padding: 28px 16px;
+  }
 }
 
 .back-link {
@@ -97,6 +103,10 @@
   color: var(--text-primary);
   margin: 0;
   line-height: 1.25;
+
+  @media (max-width: bp.$bp-sm) {
+    font-size: 22px;
+  }
 }
 
 .detail-price {

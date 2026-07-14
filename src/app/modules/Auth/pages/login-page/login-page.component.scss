@@ -1,3 +1,5 @@
+@use '../../../../shared/styles/breakpoints' as bp;
+
 :host {
   display: block;
   width: 100%;
@@ -253,6 +255,12 @@
   &:hover {
     color: var(--text-primary);
   }
+
+  @media (pointer: coarse) {
+    width: 44px;
+    height: 44px;
+    right: 4px;
+  }
 }
 
 .field-error {
@@ -448,7 +456,7 @@
 }
 
 /* Responsive layout overrides */
-@media (max-width: 480px) {
+@media (max-width: bp.$bp-sm) {
   .login-card {
     padding: 30px 20px;
     border-radius: var(--border-radius-md);

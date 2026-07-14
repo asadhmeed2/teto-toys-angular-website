@@ -1,3 +1,5 @@
+@use '../../../styles/breakpoints' as bp;
+
 /* Playful Brand Logo (Footer specific) */
 .logo {
   display: flex;
@@ -147,7 +149,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: bp.$bp-md) {
   .footer {
     padding: 3rem 1rem 1.5rem;
 

@@ -1,3 +1,5 @@
+@use '../../../styles/breakpoints' as bp;
+
 /* Light Theme Playful Header */
 .header {
   position: sticky;
@@ -154,6 +156,11 @@
 
     &:active {
       transform: translateY(0);
+    }
+
+    @media (pointer: coarse) {
+      width: 44px;
+      height: 44px;
     }
   }
 
@@ -318,7 +325,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: bp.$bp-md) {
   .header .header-container {
     padding: 0.75rem 1rem;
   }

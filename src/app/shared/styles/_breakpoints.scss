@@ -1,0 +1,5 @@
+// Content-driven breakpoint scale shared by every component stylesheet.
+// Desktop-first (max-width) to match the rest of the codebase's convention.
+$bp-sm: 640px; // phones
+$bp-md: 768px; // tablets / nav collapse
+$bp-lg: 1024px; // small laptops
