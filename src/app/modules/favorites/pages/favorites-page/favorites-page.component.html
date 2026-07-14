@@ -94,7 +94,7 @@
               class="remove-btn"
               [class.removing]="removingId() === product.product_id"
               [disabled]="removingId() === product.product_id"
-              (click)="removeFromFavorites(product.product_id)"
+              (click)="removeFromFavorites(product)"
               aria-label="Remove from favorites"
             >
               @if (removingId() === product.product_id) {

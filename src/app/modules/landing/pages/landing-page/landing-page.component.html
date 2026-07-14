@@ -104,7 +104,7 @@
                   class="favorite-btn"
                   [class.is-favorite]="isFavorite(product.product_id)"
                   [disabled]="togglingFavoriteId() === product.product_id"
-                  (click)="toggleFavorite($event, product.product_id)"
+                  (click)="toggleFavorite($event, product)"
                   [attr.aria-label]="
                     isFavorite(product.product_id) ? 'Remove from favorites' : 'Add to favorites'
                   "

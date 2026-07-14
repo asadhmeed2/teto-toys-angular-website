@@ -3,7 +3,7 @@ import { CurrencyPipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { LandingApiService, Product } from './services/landing-api.service';
 import { FavoritesApiService } from '../../../favorites/pages/favorites-page/services/favorites-api.service';
-import { AuthService } from '../../../../shared/services/auth.service';
+import { AuthService, ToastService } from '../../../../shared/services';
 
 @Component({
   selector: 'app-landing-page',
@@ -15,6 +15,7 @@ export class LandingPageComponent implements OnInit {
   private readonly landingApiService = inject(LandingApiService);
   private readonly favoritesApi = inject(FavoritesApiService);
   private readonly router = inject(Router);
+  private readonly toastService = inject(ToastService);
   protected readonly authService = inject(AuthService);
 
   protected readonly products = signal<Product[]>([]);
@@ -75,12 +76,14 @@ export class LandingPageComponent implements OnInit {
     return this.favoriteIds().has(productId);
   }
 
-  protected async toggleFavorite(event: MouseEvent, productId: string): Promise<void> {
+  protected async toggleFavorite(event: MouseEvent, product: Product): Promise<void> {
     event.stopPropagation();
+    const productId = product.product_id;
     if (!this.authService.isAuthenticated() || this.togglingFavoriteId()) return;
+    const wasFavorite = this.isFavorite(productId);
     this.togglingFavoriteId.set(productId);
     try {
-      if (this.isFavorite(productId)) {
+      if (wasFavorite) {
         await this.favoritesApi.removeFavorite(productId);
         this.favoriteIds.update(set => { const s = new Set(set); s.delete(productId); return s; });
       } else {
@@ -88,7 +91,11 @@ export class LandingPageComponent implements OnInit {
         this.favoriteIds.update(set => new Set([...set, productId]));
       }
     } catch {
-      // silently ignore — don't interrupt browsing
+      this.toastService.show(
+        wasFavorite
+          ? `Couldn't remove "${product.title}" from favorites — try again.`
+          : `Couldn't add "${product.title}" to favorites — try again.`
+      );
     } finally {
       this.togglingFavoriteId.set(null);
     }

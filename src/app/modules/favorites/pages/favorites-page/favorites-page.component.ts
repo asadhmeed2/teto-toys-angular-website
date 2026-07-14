@@ -3,6 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
 import { FavoritesApiService } from './services/favorites-api.service';
 import { Product } from '../../../landing/pages/landing-page/services/landing-api.service';
+import { ToastService } from '../../../../shared/services';
 
 @Component({
   selector: 'app-favorites-page',
@@ -14,6 +15,7 @@ import { Product } from '../../../landing/pages/landing-page/services/landing-ap
 export class FavoritesPageComponent implements OnInit {
   private readonly favoritesApi = inject(FavoritesApiService);
   private readonly router = inject(Router);
+  private readonly toastService = inject(ToastService);
 
   protected readonly favorites = signal<Product[]>([]);
   protected readonly isLoading = signal(true);
@@ -41,14 +43,15 @@ export class FavoritesPageComponent implements OnInit {
     this.router.navigate(['/product', product.product_id], { state: { product } });
   }
 
-  async removeFromFavorites(productId: string): Promise<void> {
+  async removeFromFavorites(product: Product): Promise<void> {
+    const productId = product.product_id;
     if (this.removingId()) return;
     this.removingId.set(productId);
     try {
       await this.favoritesApi.removeFavorite(productId);
       this.favorites.update((list) => list.filter((p) => p.product_id !== productId));
-    } catch (err: any) {
-      alert(err.message || 'Failed to remove from favorites.');
+    } catch {
+      this.toastService.show(`Couldn't remove "${product.title}" from favorites — try again.`);
     } finally {
       this.removingId.set(null);
     }

@@ -1,0 +1,77 @@
+.toast-stack {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  z-index: 300; // above the sticky header (100) and its dropdown (200)
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 10px;
+  width: min(420px, calc(100vw - 32px));
+  pointer-events: none;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--text-primary);
+  color: #ffffff;
+  border-radius: var(--border-radius-sm);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  font-size: 14px;
+  line-height: 1.4;
+  pointer-events: auto;
+  animation: toast-in 250ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+
+  span {
+    flex: 1;
+  }
+}
+
+.toast-dismiss {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  &:hover {
+    color: #ffffff;
+  }
+
+  @media (pointer: coarse) {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toast {
+    animation-duration: 0.01ms;
+  }
+}

@@ -3,7 +3,7 @@ import { CurrencyPipe } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { LandingApiService, Product } from '../landing-page/services/landing-api.service';
 import { FavoritesApiService } from '../../../favorites/pages/favorites-page/services/favorites-api.service';
-import { AuthService } from '../../../../shared/services/auth.service';
+import { AuthService, ToastService } from '../../../../shared/services';
 
 @Component({
   selector: 'app-product-detail-page',
@@ -15,6 +15,7 @@ export class ProductDetailPageComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly landingApiService = inject(LandingApiService);
   private readonly favoritesApi = inject(FavoritesApiService);
+  private readonly toastService = inject(ToastService);
   protected readonly authService = inject(AuthService);
 
   protected readonly product = signal<Product | null>(null);
@@ -62,9 +63,10 @@ export class ProductDetailPageComponent implements OnInit {
   protected async toggleFavorite(): Promise<void> {
     const product = this.product();
     if (!product || !this.authService.isAuthenticated() || this.togglingFavorite()) return;
+    const wasFavorite = this.isFavorite();
     this.togglingFavorite.set(true);
     try {
-      if (this.isFavorite()) {
+      if (wasFavorite) {
         await this.favoritesApi.removeFavorite(product.product_id);
         this.isFavorite.set(false);
       } else {
@@ -72,7 +74,11 @@ export class ProductDetailPageComponent implements OnInit {
         this.isFavorite.set(true);
       }
     } catch {
-      // silently ignore — consistent with the existing favorite-toggle behavior elsewhere
+      this.toastService.show(
+        wasFavorite
+          ? `Couldn't remove "${product.title}" from favorites — try again.`
+          : `Couldn't add "${product.title}" to favorites — try again.`
+      );
     } finally {
       this.togglingFavorite.set(false);
     }
