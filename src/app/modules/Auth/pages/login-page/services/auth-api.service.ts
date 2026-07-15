@@ -28,8 +28,9 @@ export class AuthApiService {
   /** Login — browser automatically stores the refresh_token HTTP-only cookie from the response. */
   async login(email: string | null | undefined, password: string | null | undefined): Promise<TokenResponse> {
     try {
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
       return await firstValueFrom(
-        this.http.post<TokenResponse>(`${this.baseUrl}/login`, { email, password }, { withCredentials: true })
+        this.http.post<TokenResponse>(`${this.baseUrl}/login`, { email, password, timezone }, { withCredentials: true })
       );
     } catch (err) {
       throw parseHttpError(err, 'Login failed');
