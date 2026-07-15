@@ -12,6 +12,7 @@ export interface Product {
   subcategory?: number | null;
   price: number;
   image_urls: string[];
+  part_ids: string[];
 }
 
 export interface ProductsResponse {
@@ -20,6 +21,14 @@ export interface ProductsResponse {
   page: number;
   page_size: number;
   total_pages: number;
+}
+
+export interface Part {
+  part_id: string;
+  title: string;
+  description?: string | null;
+  price: number;
+  image_urls: string[];
 }
 
 @Injectable({
@@ -48,6 +57,17 @@ export class LandingApiService {
       return await firstValueFrom(this.http.get<{ id: number; name: string; slug: string }[]>(url, { withCredentials: true }));
     } catch (err) {
       throw parseHttpError(err, 'Failed to fetch categories');
+    }
+  }
+
+  // ponytail: parts catalog is small, fetch one page big enough to cover it rather than paginating
+  async getParts(): Promise<Part[]> {
+    try {
+      const url = `${this.baseUrl}/parts?page=1&pageSize=100`;
+      const res = await firstValueFrom(this.http.get<{ items: Part[] }>(url, { withCredentials: true }));
+      return res.items;
+    } catch (err) {
+      throw parseHttpError(err, 'Failed to fetch parts');
     }
   }
 }

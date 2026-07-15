@@ -1,7 +1,7 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { LandingApiService, Product } from '../landing-page/services/landing-api.service';
+import { LandingApiService, Product, Part } from '../landing-page/services/landing-api.service';
 import { FavoritesApiService } from '../../../favorites/pages/favorites-page/services/favorites-api.service';
 import { AuthService, ToastService } from '../../../../shared/services';
 
@@ -24,6 +24,17 @@ export class ProductDetailPageComponent implements OnInit {
   protected readonly isFavorite = signal(false);
   protected readonly togglingFavorite = signal(false);
 
+  protected readonly parts = signal<Part[]>([]);
+  protected readonly selectedPartIds = signal<ReadonlySet<string>>(new Set());
+  protected readonly totalPrice = computed(() => {
+    const base = this.product()?.price ?? 0;
+    const selected = this.selectedPartIds();
+    const partsTotal = this.parts()
+      .filter(part => selected.has(part.part_id))
+      .reduce((sum, part) => sum + part.price, 0);
+    return base + partsTotal;
+  });
+
   async ngOnInit(): Promise<void> {
     const id = this.route.snapshot.paramMap.get('id');
     // ponytail: no backend get-by-id endpoint exists yet, so the product travels via router
@@ -35,11 +46,34 @@ export class ProductDetailPageComponent implements OnInit {
       if (this.authService.isAuthenticated()) {
         this.loadFavoriteState(state.product.product_id);
       }
+      this.loadParts(state.product.part_ids);
     } else {
       this.notFound.set(true);
     }
 
     this.loadCategories();
+  }
+
+  private async loadParts(partIds: string[]): Promise<void> {
+    if (!partIds || partIds.length === 0) return;
+    try {
+      const allParts = await this.landingApiService.getParts();
+      this.parts.set(allParts.filter(part => partIds.includes(part.part_id)));
+    } catch {
+      // parts are an optional customization — a failed lookup shouldn't block the product page
+    }
+  }
+
+  protected togglePart(partId: string): void {
+    this.selectedPartIds.update(current => {
+      const next = new Set(current);
+      if (next.has(partId)) {
+        next.delete(partId);
+      } else {
+        next.add(partId);
+      }
+      return next;
+    });
   }
 
   private async loadCategories(): Promise<void> {

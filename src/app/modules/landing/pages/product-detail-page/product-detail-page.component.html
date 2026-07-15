@@ -52,7 +52,7 @@
       <div class="detail-content">
         <div class="detail-header-row">
           <h1 class="detail-title">{{ p.title }}</h1>
-          <span class="detail-price">{{ p.price | currency: 'USD' : 'symbol' : '1.2-2' }}</span>
+          <span class="detail-price">{{ totalPrice() | currency: 'USD' : 'symbol' : '1.2-2' }}</span>
         </div>
 
         @if (p.subtitle) {
@@ -61,6 +61,24 @@
 
         @if (p.description) {
           <p class="detail-description">{{ p.description }}</p>
+        }
+
+        @if (parts().length > 0) {
+          <fieldset class="parts-select">
+            <legend class="parts-select-title">Add parts</legend>
+            @for (part of parts(); track part.part_id) {
+              <label class="parts-select-option">
+                <input
+                  type="checkbox"
+                  class="checkbox-input"
+                  [checked]="selectedPartIds().has(part.part_id)"
+                  (change)="togglePart(part.part_id)"
+                />
+                <span class="parts-select-name">{{ part.title }}</span>
+                <span class="parts-select-price">+{{ part.price | currency: 'USD' : 'symbol' : '1.2-2' }}</span>
+              </label>
+            }
+          </fieldset>
         }
 
         @if (authService.isAuthenticated()) {
