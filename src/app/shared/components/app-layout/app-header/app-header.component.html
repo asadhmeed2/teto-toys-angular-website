@@ -1,27 +1,77 @@
-<header class="header">
-  <div class="header-container">
-    <a routerLink="/" class="logo">
-      <div class="logo-mascot">
+<header
+  class="sticky top-0 z-[100] bg-[var(--bg-glass)] backdrop-blur-md border-b border-[var(--border-glass)] [transition:var(--transition-smooth)]"
+>
+  <div class="max-w-[1200px] mx-auto px-4 py-3 md:px-8 flex justify-between items-center">
+    <a routerLink="/" class="group flex items-center gap-3 no-underline [transition:var(--transition-smooth)] hover:scale-[1.02]">
+      <div
+        class="w-[46px] h-[46px] flex items-center justify-center [transition:var(--transition-smooth)] group-hover:rotate-[-3deg] group-hover:scale-105"
+      >
         <app-mascot width="46" height="46" />
       </div>
-      <div class="logo-text-wrapper">
-        <span class="logo-title">TETO TOYS</span>
-        <span class="logo-tagline">Play. Create. Imagine.</span>
+      <div class="flex flex-col justify-center">
+        <span
+          class="[font-family:var(--font-display)] text-[1.45rem] font-bold tracking-[-0.01em] text-[var(--text-accent)] leading-[1.1]"
+        >TETO TOYS</span>
+        <span
+          class="[font-family:var(--font-family)] text-[0.68rem] font-semibold text-[#3b82f6] tracking-[0.04em] leading-[1.2] mt-px"
+        >Play. Create. Imagine.</span>
       </div>
     </a>
 
-    <nav class="nav">
-      <a routerLink="/landing" routerLinkActive="active" class="nav-link">Shop All</a>
+    <nav
+      id="mobile-nav"
+      class="absolute md:static md:flex top-full inset-x-0 md:inset-x-auto flex-col md:flex-row items-stretch md:items-center gap-0 md:gap-7 bg-[var(--bg-primary)] md:bg-transparent border-b md:border-b-0 border-[var(--border-glass)] shadow-[0_8px_24px_rgba(0,0,0,0.08)] md:shadow-none px-4 md:px-0 pt-2 pb-4 md:py-0 z-[150] animate-[mobile-nav-in_0.15s_ease-out] md:animate-none"
+      [class.hidden]="!mobileNavOpen()"
+      [class.flex]="mobileNavOpen()"
+    >
+      <a
+        routerLink="/landing"
+        routerLinkActive="active"
+        class="relative w-full md:w-auto py-3.5 md:py-2 px-2 md:px-0 text-[0.95rem] font-semibold text-[var(--text-secondary)] [font-family:var(--font-family)]
+               hover:text-[var(--text-primary)]
+               md:after:content-[''] md:after:absolute md:after:bottom-0 md:after:left-1/2 md:after:-translate-x-1/2 md:after:w-0 md:after:h-[3px] md:after:bg-[var(--brand-green)] md:after:rounded-full md:after:[transition:var(--transition-smooth)]
+               md:hover:after:w-full
+               [&.active]:text-[var(--text-accent)] md:[&.active]:after:w-[60%]"
+        (click)="mobileNavOpen.set(false)"
+      >Shop All</a>
     </nav>
 
-    <div class="header-actions">
+    <div class="flex items-center gap-3">
+      <!-- Mobile nav toggle: only rendered/visible below the nav-collapse breakpoint -->
+      <button
+        id="mobile-nav-toggle"
+        class="order-[-1] flex md:hidden size-10 pointer-coarse:size-11 rounded-full border-0 bg-transparent text-[var(--text-secondary)] items-center justify-center cursor-pointer [transition:var(--transition-smooth)]
+               hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)]
+               aria-expanded:bg-[var(--bg-tertiary)] aria-expanded:text-[var(--text-accent)]"
+        type="button"
+        (click)="toggleMobileNav()"
+        [attr.aria-expanded]="mobileNavOpen()"
+        aria-controls="mobile-nav"
+        aria-label="Toggle navigation menu"
+      >
+        @if (mobileNavOpen()) {
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="size-[22px] [stroke-width:2.2]" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        } @else {
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="size-[22px] [stroke-width:2.2]" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" />
+          </svg>
+        }
+      </button>
+
       <!-- Search Icon: search only lives on the catalog page today -->
-      <a routerLink="/landing" class="action-btn" aria-label="Search products">
+      <a
+        routerLink="/landing"
+        class="relative size-10 pointer-coarse:size-11 rounded-full bg-transparent text-[var(--text-secondary)] flex items-center justify-center cursor-pointer [transition:var(--transition-smooth)]
+               hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)] hover:-translate-y-px active:translate-y-0"
+        aria-label="Search products"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
-          stroke-width="2"
+          class="size-[22px] [stroke-width:2.2]"
           stroke="currentColor"
         >
           <path
@@ -34,20 +84,24 @@
 
       <!-- User Menu -->
       @if (authService.isAuthenticated()) {
-        <div class="user-menu-wrapper">
+        <div id="user-menu-wrapper" class="relative">
           <button
-            class="user-menu-trigger"
+            class="flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-full border-[1.5px] border-[var(--border-glass)] bg-[var(--bg-secondary)] cursor-pointer [transition:var(--transition-smooth)] [font-family:var(--font-family)] text-[var(--text-primary)]
+                   hover:bg-[var(--bg-tertiary)] hover:border-[var(--brand-green)]
+                   [&.open]:bg-[var(--bg-tertiary)] [&.open]:border-[var(--brand-green)]"
             (click)="toggleMenu()"
             [class.open]="menuOpen()"
             aria-label="User menu"
             id="user-menu-trigger"
           >
-            <span class="user-avatar">
+            <span
+              class="size-7 rounded-full bg-linear-to-br from-[var(--brand-green)] to-[#22c55e] flex items-center justify-center shrink-0"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke-width="2"
+                class="size-4 stroke-white [stroke-width:2.2]"
                 stroke="currentColor"
               >
                 <path
@@ -57,13 +111,16 @@
                 />
               </svg>
             </span>
-            <span class="user-name">{{ authService.username() || 'Account' }}</span>
-            <span class="chevron" [class.rotated]="menuOpen()">
+            <span class="text-sm font-semibold text-[var(--text-primary)] max-w-[120px] truncate">{{ authService.username() || 'Account' }}</span>
+            <span
+              class="flex items-center transition-transform duration-200 [&.rotated]:rotate-180"
+              [class.rotated]="menuOpen()"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke-width="2.5"
+                class="size-3.5 text-[var(--text-secondary)] [stroke-width:2.5]"
                 stroke="currentColor"
               >
                 <path
@@ -76,14 +133,18 @@
           </button>
 
           @if (menuOpen()) {
-            <div class="user-dropdown" role="menu">
-              <div class="dropdown-header">
-                <p class="dropdown-email">{{ authService.username() }}</p>
+            <div
+              class="absolute top-[calc(100%+10px)] right-0 min-w-[200px] bg-[var(--bg-primary)] border border-[var(--border-glass)] rounded-[14px] shadow-[0_8px_32px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)] z-[200] overflow-hidden animate-[dropdown-in_0.15s_ease-out]"
+              role="menu"
+            >
+              <div class="pt-3.5 px-4 pb-3">
+                <p class="text-[0.8rem] text-[var(--text-secondary)] font-medium m-0 truncate">{{ authService.username() }}</p>
               </div>
-              <div class="dropdown-divider"></div>
+              <div class="h-px bg-[var(--border-glass)] m-0"></div>
               <a
                 routerLink="/profile"
-                class="dropdown-item"
+                class="group flex items-center gap-2.5 px-4 py-3 text-[0.9rem] font-medium [font-family:var(--font-family)] text-[var(--text-primary)] no-underline cursor-pointer border-0 bg-transparent w-full text-left transition-[background,color] duration-150 ease-in-out
+                       hover:bg-[var(--bg-secondary)] hover:text-[var(--brand-green)]"
                 (click)="menuOpen.set(false)"
                 role="menuitem"
                 id="menu-profile"
@@ -92,8 +153,9 @@
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
-                  stroke-width="2"
+                  class="size-[18px] shrink-0 text-[var(--text-secondary)] transition-colors duration-150 group-hover:text-[var(--brand-green)]"
                   stroke="currentColor"
+                  stroke-width="2"
                 >
                   <path
                     stroke-linecap="round"
@@ -105,7 +167,8 @@
               </a>
               <a
                 routerLink="/favorites"
-                class="dropdown-item"
+                class="group flex items-center gap-2.5 px-4 py-3 text-[0.9rem] font-medium [font-family:var(--font-family)] text-[var(--text-primary)] no-underline cursor-pointer border-0 bg-transparent w-full text-left transition-[background,color] duration-150 ease-in-out
+                       hover:bg-[var(--bg-secondary)] hover:text-[var(--brand-green)]"
                 (click)="menuOpen.set(false)"
                 role="menuitem"
                 id="menu-favorites"
@@ -114,8 +177,9 @@
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
-                  stroke-width="2"
+                  class="size-[18px] shrink-0 text-[var(--text-secondary)] transition-colors duration-150 group-hover:text-[var(--brand-green)]"
                   stroke="currentColor"
+                  stroke-width="2"
                 >
                   <path
                     stroke-linecap="round"
@@ -125,9 +189,10 @@
                 </svg>
                 Favorites
               </a>
-              <div class="dropdown-divider"></div>
+              <div class="h-px bg-[var(--border-glass)] m-0"></div>
               <button
-                class="dropdown-item logout-item"
+                class="group flex items-center gap-2.5 px-4 py-3 text-[0.9rem] font-medium [font-family:var(--font-family)] text-[var(--text-primary)] cursor-pointer border-0 bg-transparent w-full text-left transition-[background,color] duration-150 ease-in-out
+                       hover:bg-[rgba(239,68,68,0.07)] hover:text-[#ef4444]"
                 (click)="logout()"
                 role="menuitem"
                 id="menu-logout"
@@ -136,8 +201,9 @@
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
-                  stroke-width="2"
+                  class="size-[18px] shrink-0 text-[var(--text-secondary)] transition-colors duration-150 group-hover:text-[#ef4444]"
                   stroke="currentColor"
+                  stroke-width="2"
                 >
                   <path
                     stroke-linecap="round"
@@ -151,12 +217,17 @@
           }
         </div>
       } @else {
-        <a routerLink="/login" class="action-btn" aria-label="Account">
+        <a
+          routerLink="/login"
+          class="relative size-10 pointer-coarse:size-11 rounded-full bg-transparent text-[var(--text-secondary)] flex items-center justify-center cursor-pointer [transition:var(--transition-smooth)]
+                 hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)] hover:-translate-y-px active:translate-y-0"
+          aria-label="Account"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            stroke-width="2"
+            class="size-[22px] [stroke-width:2.2]"
             stroke="currentColor"
           >
             <path

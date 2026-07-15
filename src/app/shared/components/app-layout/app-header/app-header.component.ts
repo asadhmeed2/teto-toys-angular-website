@@ -8,7 +8,6 @@ import { AuthApiService } from '../../../../modules/Auth/pages/login-page/servic
   selector: 'app-header',
   imports: [RouterLink, RouterLinkActive, AppMascotComponent],
   templateUrl: './app-header.component.html',
-  styleUrl: './app-header.component.scss',
 })
 export class AppHeaderComponent {
   readonly authService = inject(AuthService);
@@ -16,16 +15,24 @@ export class AppHeaderComponent {
   private readonly router = inject(Router);
 
   readonly menuOpen = signal(false);
+  readonly mobileNavOpen = signal(false);
 
   toggleMenu(): void {
     this.menuOpen.update(v => !v);
   }
 
+  toggleMobileNav(): void {
+    this.mobileNavOpen.update(v => !v);
+  }
+
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
     const target = event.target as HTMLElement;
-    if (!target.closest('.user-menu-wrapper')) {
+    if (!target.closest('#user-menu-wrapper')) {
       this.menuOpen.set(false);
+    }
+    if (!target.closest('#mobile-nav') && !target.closest('#mobile-nav-toggle')) {
+      this.mobileNavOpen.set(false);
     }
   }
 

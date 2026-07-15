@@ -1,1 +1,25 @@
 @import "tailwindcss";
+
+/* Shared keyframes referenced via Tailwind's animate-[name_duration_ease] arbitrary values.
+   Keyframes have no utility-class equivalent, so they live here instead. */
+@keyframes dropdown-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes mobile-nav-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
