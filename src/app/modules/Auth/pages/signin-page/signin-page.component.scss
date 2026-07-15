@@ -235,8 +235,10 @@
     height: 20px;
   }
 
-  &:hover {
-    color: var(--text-primary);
+  @include bp.hover-capable {
+    &:hover {
+      color: var(--text-primary);
+    }
   }
 
   @media (pointer: coarse) {
@@ -294,8 +296,10 @@
   border-radius: var(--border-radius-sm);
   transition: var(--transition-smooth);
 
-  &:hover {
-    background: rgba(8, 184, 128, 0.04);
+  @include bp.hover-capable {
+    &:hover {
+      background: rgba(8, 184, 128, 0.04);
+    }
   }
 
   &.error {
@@ -339,9 +343,11 @@
   text-decoration-color: transparent;
   transition: var(--transition-smooth);
 
-  &:hover {
-    color: var(--brand-pink);
-    text-decoration-color: currentColor;
+  @include bp.hover-capable {
+    &:hover {
+      color: var(--brand-pink);
+      text-decoration-color: currentColor;
+    }
   }
 }
 
@@ -363,9 +369,11 @@
   transition: var(--transition-smooth);
   box-shadow: 0 4px 12px rgba(8, 184, 128, 0.2);
 
-  &:hover:not(:disabled) {
-    box-shadow: 0 6px 20px rgba(8, 184, 128, 0.35);
-    transform: translateY(-1px);
+  @include bp.hover-capable {
+    &:hover:not(:disabled) {
+      box-shadow: 0 6px 20px rgba(8, 184, 128, 0.35);
+      transform: translateY(-1px);
+    }
   }
 
   &:active:not(:disabled) {
@@ -405,9 +413,11 @@
   color: var(--text-accent);
   font-weight: 600;
 
-  &:hover {
-    color: var(--brand-pink);
-    text-decoration: underline;
+  @include bp.hover-capable {
+    &:hover {
+      color: var(--brand-pink);
+      text-decoration: underline;
+    }
   }
 }
 

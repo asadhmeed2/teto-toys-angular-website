@@ -252,8 +252,10 @@
     height: 20px;
   }
 
-  &:hover {
-    color: var(--text-primary);
+  @include bp.hover-capable {
+    &:hover {
+      color: var(--text-primary);
+    }
   }
 
   @media (pointer: coarse) {
@@ -304,9 +306,11 @@
   color: var(--text-accent);
   font-weight: 500;
 
-  &:hover {
-    color: var(--brand-pink);
-    text-decoration: underline;
+  @include bp.hover-capable {
+    &:hover {
+      color: var(--brand-pink);
+      text-decoration: underline;
+    }
   }
 }
 
@@ -328,9 +332,11 @@
   transition: var(--transition-smooth);
   box-shadow: 0 4px 12px rgba(8, 184, 128, 0.2);
 
-  &:hover:not(:disabled) {
-    box-shadow: 0 6px 20px rgba(8, 184, 128, 0.35);
-    transform: translateY(-1px);
+  @include bp.hover-capable {
+    &:hover:not(:disabled) {
+      box-shadow: 0 6px 20px rgba(8, 184, 128, 0.35);
+      transform: translateY(-1px);
+    }
   }
 
   &:active:not(:disabled) {
@@ -404,11 +410,13 @@
     transition: var(--transition-smooth);
   }
 
-  &:hover {
-    background-color: var(--bg-primary);
-    border-color: var(--border-glass);
-    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
-    transform: translateY(-1px);
+  @include bp.hover-capable {
+    &:hover {
+      background-color: var(--bg-primary);
+      border-color: var(--border-glass);
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+      transform: translateY(-1px);
+    }
   }
 
   &:active {
@@ -416,24 +424,32 @@
   }
 }
 
-.google-btn:hover {
-  border-color: rgba(66, 133, 244, 0.2);
-  background-color: rgba(66, 133, 244, 0.03);
+.google-btn {
+  @include bp.hover-capable {
+    &:hover {
+      border-color: rgba(66, 133, 244, 0.2);
+      background-color: rgba(66, 133, 244, 0.03);
+    }
+  }
 }
 
 .apple-btn {
   color: var(--text-primary);
-  &:hover {
-    border-color: rgba(15, 23, 42, 0.2);
-    background-color: rgba(15, 23, 42, 0.03);
+  @include bp.hover-capable {
+    &:hover {
+      border-color: rgba(15, 23, 42, 0.2);
+      background-color: rgba(15, 23, 42, 0.03);
+    }
   }
 }
 
 .github-btn {
   color: #24292e;
-  &:hover {
-    border-color: rgba(36, 41, 46, 0.2);
-    background-color: rgba(36, 41, 46, 0.03);
+  @include bp.hover-capable {
+    &:hover {
+      border-color: rgba(36, 41, 46, 0.2);
+      background-color: rgba(36, 41, 46, 0.03);
+    }
   }
 }
 
@@ -449,9 +465,11 @@
   color: var(--text-accent);
   font-weight: 600;
 
-  &:hover {
-    color: var(--brand-pink);
-    text-decoration: underline;
+  @include bp.hover-capable {
+    &:hover {
+      color: var(--brand-pink);
+      text-decoration: underline;
+    }
   }
 }
 

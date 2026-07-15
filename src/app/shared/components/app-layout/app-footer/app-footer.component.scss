@@ -47,9 +47,11 @@
     }
   }
 
-  &:hover {
-    .logo-mascot {
-      transform: rotate(-3deg) scale(1.05);
+  @include bp.hover-capable {
+    &:hover {
+      .logo-mascot {
+        transform: rotate(-3deg) scale(1.05);
+      }
     }
   }
 }
@@ -109,9 +111,11 @@
       font-size: 0.9rem;
       transition: var(--transition-smooth);
 
-      &:hover {
-        color: var(--brand-green);
-        transform: translateX(2px);
+      @include bp.hover-capable {
+        &:hover {
+          color: var(--brand-green);
+          transform: translateX(2px);
+        }
       }
     }
   }
@@ -140,9 +144,11 @@
         color: var(--text-muted);
         transition: var(--transition-smooth);
 
-        &:hover {
-          color: var(--brand-green);
-          transform: scale(1.1);
+        @include bp.hover-capable {
+          &:hover {
+            color: var(--brand-green);
+            transform: scale(1.1);
+          }
         }
       }
     }

@@ -3,3 +3,11 @@
 $bp-sm: 640px; // phones
 $bp-md: 768px; // tablets / nav collapse
 $bp-lg: 1024px; // small laptops
+
+// Gate :hover rules to pointer devices that can actually hover, so touch taps
+// don't leave a button/link stuck in its hover state until the next tap.
+@mixin hover-capable {
+  @media (hover: hover) and (pointer: fine) {
+    @content;
+  }
+}

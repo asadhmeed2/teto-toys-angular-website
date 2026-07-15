@@ -1,7 +1,9 @@
+@use '../../styles/breakpoints' as bp;
+
 .toast-stack {
   position: fixed;
   left: 50%;
-  bottom: 24px;
+  bottom: max(24px, calc(env(safe-area-inset-bottom) + 12px));
   transform: translateX(-50%);
   z-index: 300; // above the sticky header (100) and its dropdown (200)
   display: flex;
@@ -49,8 +51,10 @@
     height: 16px;
   }
 
-  &:hover {
-    color: #ffffff;
+  @include bp.hover-capable {
+    &:hover {
+      color: #ffffff;
+    }
   }
 
   @media (pointer: coarse) {

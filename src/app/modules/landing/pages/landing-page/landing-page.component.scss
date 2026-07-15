@@ -120,10 +120,12 @@
   transition: var(--transition-smooth);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.01);
 
-  &:hover {
-    transform: translateY(-1px);
-    border-color: rgba(8, 184, 128, 0.3);
-    color: var(--brand-green);
+  @include bp.hover-capable {
+    &:hover {
+      transform: translateY(-1px);
+      border-color: rgba(8, 184, 128, 0.3);
+      color: var(--brand-green);
+    }
   }
 
   &.active {
