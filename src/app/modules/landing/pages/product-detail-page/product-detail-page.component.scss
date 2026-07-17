@@ -130,7 +130,31 @@
   font-size: 15px;
   line-height: 1.6;
   color: var(--text-secondary);
-  margin: 0 0 28px 0;
+  margin: 0 0 16px 0;
+}
+
+.contact-phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  margin-bottom: 24px;
+  transition: var(--transition-smooth);
+
+  svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  @include bp.hover-capable {
+    &:hover {
+      color: var(--brand-green);
+    }
+  }
 }
 
 .parts-select {
