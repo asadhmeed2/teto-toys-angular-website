@@ -50,6 +50,17 @@
           (ngSubmit)="onSubmit()"
           class="flex flex-col gap-5"
         >
+          @if (errorMessage()) {
+            <div
+              class="flex items-center gap-2.5 px-4 py-3 rounded-xl text-sm"
+              style="background: rgba(255,51,77,0.08); border: 1px solid rgba(255,51,77,0.2); color: var(--brand-red);"
+            >
+              <svg class="w-[18px] h-[18px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+              </svg>
+              {{ errorMessage() }}
+            </div>
+          }
           <!-- Name & Email row -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div class="flex flex-col gap-1.5">
@@ -135,13 +146,21 @@
 
           <button
             type="submit"
-            class="self-start flex items-center gap-2 px-7 py-3 text-sm font-semibold text-white rounded-xl transition-transform hover:-translate-y-0.5 active:translate-y-0"
+            [disabled]="isSubmitting()"
+            class="self-start flex items-center gap-2 px-7 py-3 text-sm font-semibold text-white rounded-xl transition-transform hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
             style="background: var(--accent-gradient); box-shadow: 0 4px 14px rgba(8,184,128,0.25);"
           >
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
-            </svg>
-            Send Message
+            @if (isSubmitting()) {
+              <svg class="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" d="M12 2a10 10 0 100 20" />
+              </svg>
+              Sending…
+            } @else {
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+              </svg>
+              Send Message
+            }
           </button>
         </form>
       }
