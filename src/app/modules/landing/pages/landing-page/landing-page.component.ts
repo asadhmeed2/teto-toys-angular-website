@@ -4,10 +4,11 @@ import { LandingApiService, Product } from './services/landing-api.service';
 import { FavoritesApiService } from '../../../favorites/pages/favorites-page/services/favorites-api.service';
 import { AuthService, ToastService } from '../../../../shared/services';
 import { ProductsCardsListComponent } from '../../components/products-cards-list';
+import { PageHeroComponent } from '../../../../shared/components/page-hero';
 
 @Component({
   selector: 'app-landing-page',
-  imports: [ProductsCardsListComponent],
+  imports: [ProductsCardsListComponent, PageHeroComponent],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.scss',
 })

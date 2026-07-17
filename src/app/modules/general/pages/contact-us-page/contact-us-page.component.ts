@@ -1,8 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
 import { ContactApiService } from './services/contact-api.service';
+import { PageHeroComponent } from '../../../../shared/components/page-hero';
 
 @Component({
   selector: 'app-contact-us-page',
+  imports: [PageHeroComponent],
   templateUrl: './contact-us-page.component.html',
   styleUrl: './contact-us-page.component.scss',
 })

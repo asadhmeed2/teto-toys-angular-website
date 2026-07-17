@@ -1,0 +1,35 @@
+<header
+  class="
+    rounded-xl sm:rounded-2xl
+    bg-gradient-to-br from-slate-900 to-slate-800
+    px-5 py-8
+    sm:px-7 sm:py-10
+    lg:px-8 lg:py-12
+    xl:px-10 xl:py-16
+    mb-16
+  "
+  style="box-shadow: 0 10px 30px rgba(0,0,0,0.06);"
+>
+  <div class="max-w-xl">
+
+    <h1 class="font-bold text-white leading-tight mb-3 m-0
+               text-[26px] sm:text-[32px] lg:text-[40px] xl:text-5xl">
+      <!--
+        ponytail: ng-content with fallback (Angular 17.2+)
+        — project [heroTitle] for rich HTML titles (spans, accents, etc.)
+        — falls back to the plain `title` string input when nothing is projected
+      -->
+      <ng-content select="[heroTitle]">{{ title() }}</ng-content>
+    </h1>
+
+    <p class="text-slate-400 leading-relaxed m-0 text-[15px] sm:text-lg">
+      <!--
+        ponytail: same pattern for subtitle
+        — project [heroSubtitle] for rich HTML subtitles
+        — falls back to the plain `subtitle` string input
+      -->
+      <ng-content select="[heroSubtitle]">{{ subtitle() }}</ng-content>
+    </p>
+
+  </div>
+</header>
