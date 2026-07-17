@@ -36,4 +36,8 @@ export const routes: Routes = [
     loadComponent: () => import('./modules/favorites').then((m) => m.FavoritesPageComponent),
     canActivate: [authGuard],
   },
+  {
+    path: 'about',
+    loadComponent: () => import('./modules/general').then((m) => m.AboutUsPageComponent),
+  },
 ];
