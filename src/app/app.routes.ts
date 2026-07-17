@@ -40,4 +40,8 @@ export const routes: Routes = [
     path: 'about',
     loadComponent: () => import('./modules/general').then((m) => m.AboutUsPageComponent),
   },
+  {
+    path: 'contact',
+    loadComponent: () => import('./modules/general').then((m) => m.ContactUsPageComponent),
+  },
 ];

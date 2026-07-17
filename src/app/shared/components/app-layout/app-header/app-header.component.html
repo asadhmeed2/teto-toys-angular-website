@@ -44,6 +44,16 @@
                [&.active]:text-[var(--text-accent)] md:[&.active]:after:w-[60%]"
         (click)="mobileNavOpen.set(false)"
       >About Us</a>
+      <a
+        routerLink="/contact"
+        routerLinkActive="active"
+        class="relative w-full md:w-auto py-3.5 md:py-2 px-2 md:px-0 text-[0.95rem] font-semibold text-[var(--text-secondary)] [font-family:var(--font-family)]
+               hover:text-[var(--text-primary)]
+               md:after:content-[''] md:after:absolute md:after:bottom-0 md:after:left-1/2 md:after:-translate-x-1/2 md:after:w-0 md:after:h-[3px] md:after:bg-[var(--brand-green)] md:after:rounded-full md:after:[transition:var(--transition-smooth)]
+               md:hover:after:w-full
+               [&.active]:text-[var(--text-accent)] md:[&.active]:after:w-[60%]"
+        (click)="mobileNavOpen.set(false)"
+      >Contact Us</a>
     </nav>
 
     <div class="flex items-center gap-3">
