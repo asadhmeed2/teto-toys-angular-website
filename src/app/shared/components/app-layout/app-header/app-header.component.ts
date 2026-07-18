@@ -1,7 +1,7 @@
-import { Component, inject, signal, HostListener } from '@angular/core';
+import { Component, OnInit, inject, signal, HostListener } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AppMascotComponent } from '../../app-mascot';
-import { AuthService } from '../../../services';
+import { AuthService, LanguageService } from '../../../services';
 import { AuthApiService } from '../../../../modules/Auth/pages/login-page/services/auth-api.service';
 
 @Component({
@@ -9,10 +9,15 @@ import { AuthApiService } from '../../../../modules/Auth/pages/login-page/servic
   imports: [RouterLink, RouterLinkActive, AppMascotComponent],
   templateUrl: './app-header.component.html',
 })
-export class AppHeaderComponent {
+export class AppHeaderComponent implements OnInit {
   readonly authService = inject(AuthService);
+  readonly languageService = inject(LanguageService);
   private readonly authApiService = inject(AuthApiService);
   private readonly router = inject(Router);
+
+  ngOnInit(): void {
+    this.languageService.load();
+  }
 
   readonly menuOpen = signal(false);
   readonly mobileNavOpen = signal(false);

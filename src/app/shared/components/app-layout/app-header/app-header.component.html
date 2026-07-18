@@ -80,6 +80,21 @@
         }
       </button>
 
+      <!-- Language selector: drives translated content + RTL/LTR layout direction -->
+      @if (languageService.languages().length > 0) {
+        <select
+          class="h-10 pointer-coarse:h-11 px-2 rounded-full border-[1.5px] border-[var(--border-glass)] bg-[var(--bg-secondary)] text-sm font-semibold text-[var(--text-primary)] [font-family:var(--font-family)] cursor-pointer [transition:var(--transition-smooth)]
+                 hover:border-[var(--brand-green)] focus:border-[var(--brand-green)] focus:outline-none"
+          [value]="languageService.current()"
+          (change)="languageService.setLanguage($any($event.target).value)"
+          aria-label="Select language"
+        >
+          @for (l of languageService.languages(); track l.code) {
+            <option [value]="l.code">{{ l.name }}</option>
+          }
+        </select>
+      }
+
       <!-- Search Icon: search only lives on the catalog page today -->
       <a
         routerLink="/landing"
