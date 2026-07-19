@@ -92,15 +92,13 @@
 
       <!-- Language selector: drives translated content + RTL/LTR layout direction -->
       @if (languageService.languages().length > 0) {
-        <label
-          class="flex items-center gap-1.5 pl-2.5 pr-2 py-1.5 rounded-full border-[1.5px] border-[var(--border-glass)] bg-[var(--bg-secondary)] cursor-pointer [transition:var(--transition-smooth)] hover:bg-[var(--bg-tertiary)] hover:border-[var(--brand-green)] has-[:focus]:border-[var(--brand-green)]"
-          [attr.aria-label]="'header.selectLanguage' | translate"
-        >
+        <div class="relative flex items-center rounded-full border-[1.5px] border-[var(--border-glass)] bg-[var(--bg-secondary)] [transition:var(--transition-smooth)] hover:bg-[var(--bg-tertiary)] hover:border-[var(--brand-green)] has-[:focus]:border-[var(--brand-green)]">
+          <!-- globe icon -->
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            class="size-4 shrink-0 text-[var(--text-secondary)] [stroke-width:2]"
+            class="absolute left-2.5 size-4 pointer-events-none shrink-0 text-[var(--text-secondary)] [stroke-width:2]"
             stroke="currentColor"
           >
             <path
@@ -110,8 +108,9 @@
             />
           </svg>
           <select
-            class="flex-1 min-w-0 text-sm font-semibold text-[var(--text-primary)] [font-family:var(--font-family)] cursor-pointer bg-transparent border-0 outline-none appearance-none pr-0"
+            class="w-full py-1.5 pl-8 pr-7 text-sm font-semibold text-[var(--text-primary)] [font-family:var(--font-family)] cursor-pointer bg-transparent border-0 outline-none appearance-none"
             (change)="languageService.setLanguage($any($event.target).value)"
+            [attr.aria-label]="'header.selectLanguage' | translate"
           >
             @for (l of languageService.languages(); track l.code) {
               <option
@@ -123,16 +122,17 @@
               </option>
             }
           </select>
+          <!-- chevron icon -->
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            class="size-3.5 shrink-0 text-[var(--text-secondary)] [stroke-width:2.5]"
+            class="absolute right-2 size-3.5 pointer-events-none shrink-0 text-[var(--text-secondary)] [stroke-width:2.5]"
             stroke="currentColor"
           >
             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
           </svg>
-        </label>
+        </div>
       }
 
       <!-- Search Icon: search only lives on the catalog page today -->
