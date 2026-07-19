@@ -1,13 +1,14 @@
 import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 import { LandingApiService, Product, Part } from '../landing-page/services/landing-api.service';
 import { FavoritesApiService } from '../../../favorites/pages/favorites-page/services/favorites-api.service';
 import { AuthService, ToastService } from '../../../../shared/services';
 
 @Component({
   selector: 'app-product-detail-page',
-  imports: [CurrencyPipe, RouterLink],
+  imports: [CurrencyPipe, RouterLink, TranslatePipe],
   templateUrl: './product-detail-page.component.html',
   styleUrl: './product-detail-page.component.scss',
 })

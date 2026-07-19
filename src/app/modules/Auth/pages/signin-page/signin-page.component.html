@@ -4,8 +4,8 @@
       <div class="mascot-wrapper">
         <app-mascot [passwordFocused]="isPasswordFocused()" width="74" height="74" />
       </div>
-      <h1 class="signup-title">Create Your Account</h1>
-      <p class="signup-subtitle">Join Teto Toys to discover amazing toys &amp; rewards</p>
+      <h1 class="signup-title">{{ 'auth.signup.title' | translate }}</h1>
+      <p class="signup-subtitle">{{ 'auth.signup.subtitle' | translate }}</p>
     </div>
 
     <!-- Error message banner if applicable -->
@@ -29,7 +29,7 @@
           <div class="input-wrapper">
             <input id="firstName" type="text" formControlName="firstName" placeholder=" " required
               autocomplete="given-name" class="form-input" />
-            <label for="firstName" class="form-label">First Name</label>
+            <label for="firstName" class="form-label">{{ 'auth.firstNameLabel' | translate }}</label>
             <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
               stroke-width="2" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round"
@@ -39,7 +39,7 @@
           @if (signupForm.controls.firstName.invalid && signupForm.controls.firstName.touched) {
           <div class="field-error">
             @if (signupForm.controls.firstName.errors?.['required']) {
-            First name is required
+            {{ 'auth.firstNameRequired' | translate }}
             }
           </div>
           }
@@ -51,7 +51,7 @@
           <div class="input-wrapper">
             <input id="lastName" type="text" formControlName="lastName" placeholder=" " required
               autocomplete="family-name" class="form-input" />
-            <label for="lastName" class="form-label">Last Name</label>
+            <label for="lastName" class="form-label">{{ 'auth.lastNameLabel' | translate }}</label>
             <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
               stroke-width="2" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round"
@@ -61,7 +61,7 @@
           @if (signupForm.controls.lastName.invalid && signupForm.controls.lastName.touched) {
           <div class="field-error">
             @if (signupForm.controls.lastName.errors?.['required']) {
-            Last name is required
+            {{ 'auth.lastNameRequired' | translate }}
             }
           </div>
           }
@@ -74,7 +74,7 @@
         <div class="input-wrapper">
           <input id="signup-email" type="email" formControlName="email" placeholder=" " required autocomplete="email"
             class="form-input" />
-          <label for="signup-email" class="form-label">Email Address</label>
+          <label for="signup-email" class="form-label">{{ 'auth.emailLabel' | translate }}</label>
           <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
             stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -84,9 +84,9 @@
         @if (signupForm.controls.email.invalid && signupForm.controls.email.touched) {
         <div class="field-error">
           @if (signupForm.controls.email.errors?.['required']) {
-          Email is required
+          {{ 'auth.emailRequired' | translate }}
           } @else if (signupForm.controls.email.errors?.['email']) {
-          Please enter a valid email address
+          {{ 'auth.emailInvalid' | translate }}
           }
         </div>
         }
@@ -99,14 +99,14 @@
           <input id="signup-password" [type]="isPasswordVisible() ? 'text' : 'password'" formControlName="password"
             placeholder=" " required autocomplete="new-password" class="form-input has-toggle"
             (focus)="onPasswordFocus()" (blur)="onPasswordBlur()" />
-          <label for="signup-password" class="form-label">Password</label>
+          <label for="signup-password" class="form-label">{{ 'auth.passwordLabel' | translate }}</label>
           <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
             stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round"
               d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
           </svg>
           <button type="button" class="password-toggle" (click)="togglePasswordVisibility()"
-            [attr.aria-label]="isPasswordVisible() ? 'Hide password' : 'Show password'">
+            [attr.aria-label]="(isPasswordVisible() ? 'auth.hidePassword' : 'auth.showPassword') | translate">
             @if (isPasswordVisible()) {
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
               stroke="currentColor">
@@ -126,9 +126,9 @@
         @if (signupForm.controls.password.invalid && signupForm.controls.password.touched) {
         <div class="field-error">
           @if (signupForm.controls.password.errors?.['required']) {
-          Password is required
+          {{ 'auth.passwordRequired' | translate }}
           } @else if (signupForm.controls.password.errors?.['minlength']) {
-          Password must be at least 8 characters
+          {{ 'auth.passwordMinLength' | translate }}
           }
         </div>
         }
@@ -140,14 +140,14 @@
           <input id="confirmPassword" [type]="isConfirmPasswordVisible() ? 'text' : 'password'"
             formControlName="confirmPassword" placeholder=" " required autocomplete="new-password"
             class="form-input has-toggle" />
-          <label for="confirmPassword" class="form-label">Confirm Password</label>
+          <label for="confirmPassword" class="form-label">{{ 'auth.confirmPasswordLabel' | translate }}</label>
           <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
             stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round"
               d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
           </svg>
           <button type="button" class="password-toggle" (click)="toggleConfirmPasswordVisibility()"
-            [attr.aria-label]="isConfirmPasswordVisible() ? 'Hide password' : 'Show password'">
+            [attr.aria-label]="(isConfirmPasswordVisible() ? 'auth.hidePassword' : 'auth.showPassword') | translate">
             @if (isConfirmPasswordVisible()) {
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
               stroke="currentColor">
@@ -166,9 +166,9 @@
         </div>
         @if (signupForm.controls.confirmPassword.touched) {
           @if (signupForm.controls.confirmPassword.errors?.['required']) {
-          <div class="field-error">Please confirm your password</div>
+          <div class="field-error">{{ 'auth.confirmPasswordRequired' | translate }}</div>
           } @else if (signupForm.errors?.['passwordsMismatch']) {
-          <div class="field-error">Passwords do not match</div>
+          <div class="field-error">{{ 'auth.passwordsMismatch' | translate }}</div>
           }
         }
       </div>
@@ -181,14 +181,14 @@
             <path stroke-linecap="round" stroke-linejoin="round"
               d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
           </svg>
-          <span>Almost there!</span>
+          <span>{{ 'auth.signup.almostThere' | translate }}</span>
         </div>
 
         <!-- Age Verification -->
         <label class="checkbox-row" [class.error]="signupForm.controls.isAdult.invalid && signupForm.controls.isAdult.touched">
           <input type="checkbox" formControlName="isAdult" class="checkbox-input" />
           <span class="checkbox-label">
-            I confirm that I am <strong>18 years or older</strong>
+            {{ 'auth.signup.ageConfirmPrefix' | translate }} <strong>{{ 'auth.signup.ageConfirmEmphasis' | translate }}</strong>
             <span class="required-star">*</span>
           </span>
         </label>
@@ -197,8 +197,8 @@
         <label class="checkbox-row" [class.error]="signupForm.controls.termsAccepted.invalid && signupForm.controls.termsAccepted.touched">
           <input type="checkbox" formControlName="termsAccepted" class="checkbox-input" />
           <span class="checkbox-label">
-            I agree to the <a href="javascript:void(0)" class="inline-link">Terms of Service</a> and
-            <a href="javascript:void(0)" class="inline-link">Privacy Policy</a>
+            {{ 'auth.signup.agreeToPrefix' | translate }} <a href="javascript:void(0)" class="inline-link">{{ 'auth.signup.termsOfService' | translate }}</a> {{ 'auth.signup.and' | translate }}
+            <a href="javascript:void(0)" class="inline-link">{{ 'auth.signup.privacyPolicy' | translate }}</a>
             <span class="required-star">*</span>
           </span>
         </label>
@@ -207,7 +207,7 @@
         <label class="checkbox-row">
           <input type="checkbox" formControlName="marketingOptIn" class="checkbox-input" />
           <span class="checkbox-label">
-            Send me exclusive deals, new arrivals &amp; birthday surprises
+            {{ 'auth.signup.marketingOptIn' | translate }}
           </span>
         </label>
       </div>
@@ -216,16 +216,16 @@
       <button type="submit" [disabled]="isLoading()" class="submit-btn">
         @if (isLoading()) {
         <span class="spinner"></span>
-        <span>Creating account...</span>
+        <span>{{ 'auth.signup.creating' | translate }}</span>
         } @else {
-        <span>Create Account</span>
+        <span>{{ 'auth.signup.createAccount' | translate }}</span>
         }
       </button>
 
       <!-- Login link -->
       <div class="login-prompt">
-        <span>Already have an account? </span>
-        <a [routerLink]="['/login']" class="login-link">Sign in</a>
+        <span>{{ 'auth.signup.hasAccount' | translate }}</span>
+        <a [routerLink]="['/login']" class="login-link">{{ 'auth.signup.signInLink' | translate }}</a>
       </div>
     </form>
   </div>

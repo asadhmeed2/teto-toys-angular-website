@@ -1,8 +1,8 @@
 <div class="max-w-6xl mx-auto px-5 py-10 pb-20">
 
   <!-- Hero -->
-  <app-page-hero subtitle="Have a question, a custom order request, or just want to say hi? We'd love to hear from you.">
-    <span heroTitle>Contact <span style="color: var(--brand-green);">Us</span></span>
+  <app-page-hero [subtitle]="'contact.heroSubtitle' | translate">
+    <span heroTitle>{{ 'contact.heroTitlePrefix' | translate }} <span style="color: var(--brand-green);">Us</span></span>
   </app-page-hero>
 
   <div class="grid grid-cols-1 md:grid-cols-[1fr_400px] gap-12 max-w-5xl mx-auto">
@@ -24,17 +24,17 @@
             </svg>
           </div>
           <h2 class="text-2xl font-bold mb-2" style="color: var(--text-primary); font-family: var(--font-display);">
-            Message sent!
+            {{ 'contact.messageSent' | translate }}
           </h2>
           <p class="text-sm mb-6" style="color: var(--text-secondary);">
-            Thanks for reaching out. We'll get back to you within 1–2 business days.
+            {{ 'contact.thanksBody' | translate }}
           </p>
           <button
             (click)="reset()"
             class="px-6 py-2.5 text-sm font-semibold text-white rounded-lg transition-transform hover:-translate-y-0.5"
             style="background: var(--accent-gradient); box-shadow: 0 4px 12px rgba(8,184,128,0.2);"
           >
-            Send another message
+            {{ 'contact.sendAnother' | translate }}
           </button>
         </div>
       } @else {
@@ -58,12 +58,12 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div class="flex flex-col gap-1.5">
               <label class="text-xs font-semibold uppercase tracking-wider" style="color: var(--text-secondary);">
-                Name <span style="color: var(--brand-red);">*</span>
+                {{ 'contact.nameLabel' | translate }} <span style="color: var(--brand-red);">*</span>
               </label>
               <input
                 type="text"
                 required
-                placeholder="Your name"
+                [attr.placeholder]="'contact.namePlaceholder' | translate"
                 [value]="name()"
                 (input)="name.set($any($event.target).value)"
                 class="px-4 py-3 text-sm rounded-xl border outline-none transition-all"
@@ -77,7 +77,7 @@
             </div>
             <div class="flex flex-col gap-1.5">
               <label class="text-xs font-semibold uppercase tracking-wider" style="color: var(--text-secondary);">
-                Email <span style="color: var(--brand-red);">*</span>
+                {{ 'contact.emailLabel' | translate }} <span style="color: var(--brand-red);">*</span>
               </label>
               <input
                 type="email"
@@ -99,11 +99,11 @@
           <!-- Subject -->
           <div class="flex flex-col gap-1.5">
             <label class="text-xs font-semibold uppercase tracking-wider" style="color: var(--text-secondary);">
-              Subject
+              {{ 'contact.subjectLabel' | translate }}
             </label>
             <input
               type="text"
-              placeholder="What's this about?"
+              [attr.placeholder]="'contact.subjectPlaceholder' | translate"
               [value]="subject()"
               (input)="subject.set($any($event.target).value)"
               class="px-4 py-3 text-sm rounded-xl border outline-none transition-all"
@@ -119,12 +119,12 @@
           <!-- Message -->
           <div class="flex flex-col gap-1.5">
             <label class="text-xs font-semibold uppercase tracking-wider" style="color: var(--text-secondary);">
-              Message <span style="color: var(--brand-red);">*</span>
+              {{ 'contact.messageLabel' | translate }} <span style="color: var(--brand-red);">*</span>
             </label>
             <textarea
               required
               rows="6"
-              placeholder="Tell us how we can help..."
+              [attr.placeholder]="'contact.messagePlaceholder' | translate"
               [value]="message()"
               (input)="message.set($any($event.target).value)"
               class="px-4 py-3 text-sm rounded-xl border outline-none transition-all resize-none"
@@ -147,12 +147,12 @@
               <svg class="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" d="M12 2a10 10 0 100 20" />
               </svg>
-              Sending…
+              {{ 'contact.sending' | translate }}
             } @else {
               <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
               </svg>
-              Send Message
+              {{ 'contact.sendMessage' | translate }}
             }
           </button>
         </form>
@@ -176,13 +176,13 @@
           </svg>
         </div>
         <div>
-          <p class="text-xs font-semibold uppercase tracking-wider mb-1 m-0" style="color: var(--text-secondary);">Phone</p>
+          <p class="text-xs font-semibold uppercase tracking-wider mb-1 m-0" style="color: var(--text-secondary);">{{ 'contact.phoneLabel' | translate }}</p>
           <a
             href="tel:+972541234567"
             class="text-sm font-medium no-underline transition-colors hover:text-[var(--brand-green)]"
             style="color: var(--text-primary);"
           >054-123-4567</a>
-          <p class="text-xs mt-0.5 m-0" style="color: var(--text-muted);">Sun – Thu, 9:00 – 18:00</p>
+          <p class="text-xs mt-0.5 m-0" style="color: var(--text-muted);">{{ 'contact.phoneHours' | translate }}</p>
         </div>
       </div>
 
@@ -200,13 +200,13 @@
           </svg>
         </div>
         <div>
-          <p class="text-xs font-semibold uppercase tracking-wider mb-1 m-0" style="color: var(--text-secondary);">Email</p>
+          <p class="text-xs font-semibold uppercase tracking-wider mb-1 m-0" style="color: var(--text-secondary);">{{ 'contact.emailLabel' | translate }}</p>
           <a
             href="mailto:hello@tetotoys.com"
             class="text-sm font-medium no-underline transition-colors hover:text-[var(--brand-green)]"
             style="color: var(--text-primary);"
           >hello&#64;tetotoys.com</a>
-          <p class="text-xs mt-0.5 m-0" style="color: var(--text-muted);">We reply within 1–2 business days</p>
+          <p class="text-xs mt-0.5 m-0" style="color: var(--text-muted);">{{ 'contact.emailReply' | translate }}</p>
         </div>
       </div>
 
@@ -225,9 +225,9 @@
           </svg>
         </div>
         <div>
-          <p class="text-xs font-semibold uppercase tracking-wider mb-1 m-0" style="color: var(--text-secondary);">Location</p>
-          <p class="text-sm font-medium m-0" style="color: var(--text-primary);">Tel Aviv, Israel</p>
-          <p class="text-xs mt-0.5 m-0" style="color: var(--text-muted);">Showroom visits by appointment</p>
+          <p class="text-xs font-semibold uppercase tracking-wider mb-1 m-0" style="color: var(--text-secondary);">{{ 'contact.locationLabel' | translate }}</p>
+          <p class="text-sm font-medium m-0" style="color: var(--text-primary);">{{ 'contact.locationValue' | translate }}</p>
+          <p class="text-xs mt-0.5 m-0" style="color: var(--text-muted);">{{ 'contact.locationNote' | translate }}</p>
         </div>
       </div>
 
@@ -245,14 +245,14 @@
           </svg>
         </div>
         <div>
-          <p class="text-xs font-semibold uppercase tracking-wider mb-2 m-0" style="color: var(--text-secondary);">Follow us</p>
+          <p class="text-xs font-semibold uppercase tracking-wider mb-2 m-0" style="color: var(--text-secondary);">{{ 'contact.followUs' | translate }}</p>
           <div class="flex gap-3">
-            <a href="#" aria-label="Instagram" class="transition-colors hover:text-[var(--brand-green)]" style="color: var(--text-secondary);">
+            <a href="#" [attr.aria-label]="'footer.instagram' | translate" class="transition-colors hover:text-[var(--brand-green)]" style="color: var(--text-secondary);">
               <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
               </svg>
             </a>
-            <a href="#" aria-label="Twitter / X" class="transition-colors hover:text-[var(--brand-green)]" style="color: var(--text-secondary);">
+            <a href="#" [attr.aria-label]="'contact.twitterX' | translate" class="transition-colors hover:text-[var(--brand-green)]" style="color: var(--text-secondary);">
               <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
               </svg>

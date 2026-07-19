@@ -7,29 +7,29 @@
         </div>
         <div class="logo-text-wrapper">
           <span class="logo-title">TETO TOYS</span>
-          <span class="logo-tagline">Play. Create. Imagine.</span>
+          <span class="logo-tagline">{{ 'header.tagline' | translate }}</span>
         </div>
       </a>
       <p class="footer-description">
-        Bringing joy and creativity to children worldwide with premium, handcrafted toys.
+        {{ 'footer.description' | translate }}
       </p>
     </div>
 
     <div class="footer-links">
       <div class="link-group">
-        <h2>Explore</h2>
-        <a routerLink="/landing">All Toys</a>
-        <a routerLink="/favorites">Favorites</a>
-        <a routerLink="/about">About Us</a>
-        <a routerLink="/contact">Contact Us</a>
+        <h2>{{ 'footer.explore' | translate }}</h2>
+        <a routerLink="/landing">{{ 'footer.allToys' | translate }}</a>
+        <a routerLink="/favorites">{{ 'header.favorites' | translate }}</a>
+        <a routerLink="/about">{{ 'header.navAbout' | translate }}</a>
+        <a routerLink="/contact">{{ 'header.navContact' | translate }}</a>
       </div>
     </div>
   </div>
 
   <div class="footer-bottom">
-    <p class="copyright">&copy; 2026 TetoToys. All rights reserved. Made with love.</p>
+    <p class="copyright">{{ 'footer.copyright' | translate }}</p>
     <div class="social-links">
-      <a href="#" aria-label="Instagram">
+      <a href="#" [attr.aria-label]="'footer.instagram' | translate">
         <svg
           class="social-icon"
           xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +41,7 @@
           />
         </svg>
       </a>
-      <a href="#" aria-label="Twitter">
+      <a href="#" [attr.aria-label]="'footer.twitter' | translate">
         <svg
           class="social-icon"
           xmlns="http://www.w3.org/2000/svg"

@@ -1,10 +1,11 @@
 import { Component, input, output } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 import { Product } from '../../pages/landing-page/services/landing-api.service';
 
 @Component({
   selector: 'app-products-cards-list',
-  imports: [CurrencyPipe],
+  imports: [CurrencyPipe, TranslatePipe],
   templateUrl: './products-cards-list.component.html',
   styleUrl: './products-cards-list.component.scss',
 })

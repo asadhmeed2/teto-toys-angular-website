@@ -1,10 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { ContactApiService } from './services/contact-api.service';
 import { PageHeroComponent } from '../../../../shared/components/page-hero';
 
 @Component({
   selector: 'app-contact-us-page',
-  imports: [PageHeroComponent],
+  imports: [PageHeroComponent, TranslatePipe],
   templateUrl: './contact-us-page.component.html',
   styleUrl: './contact-us-page.component.scss',
 })

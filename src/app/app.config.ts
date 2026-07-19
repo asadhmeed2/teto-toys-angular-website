@@ -1,6 +1,8 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideAppInitializer, inject } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideTranslateService } from '@ngx-translate/core';
+import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 import { authInterceptor } from './shared/interceptors';
 import { AuthService } from './shared/services';
 
@@ -14,5 +16,10 @@ export const appConfig: ApplicationConfig = {
     // Hydrate the session from the httpOnly refresh_token cookie before the app renders,
     // so route guards and the header see accurate auth state on first paint.
     provideAppInitializer(() => inject(AuthService).tryRestoreSession()),
+    provideTranslateService({
+      loader: provideTranslateHttpLoader({ prefix: '/i18n/', suffix: '.json' }),
+      lang: localStorage.getItem('lang') || 'en',
+      fallbackLang: 'en',
+    }),
   ]
 };

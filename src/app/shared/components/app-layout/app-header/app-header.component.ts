@@ -1,12 +1,13 @@
 import { Component, OnInit, inject, signal, HostListener } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 import { AppMascotComponent } from '../../app-mascot';
 import { AuthService, LanguageService } from '../../../services';
 import { AuthApiService } from '../../../../modules/Auth/pages/login-page/services/auth-api.service';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, RouterLinkActive, AppMascotComponent],
+  imports: [RouterLink, RouterLinkActive, AppMascotComponent, TranslatePipe],
   templateUrl: './app-header.component.html',
 })
 export class AppHeaderComponent implements OnInit {

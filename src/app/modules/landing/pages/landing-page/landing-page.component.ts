@@ -1,5 +1,6 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 import { LandingApiService, Product } from './services/landing-api.service';
 import { FavoritesApiService } from '../../../favorites/pages/favorites-page/services/favorites-api.service';
 import { AuthService, ToastService } from '../../../../shared/services';
@@ -8,7 +9,7 @@ import { PageHeroComponent } from '../../../../shared/components/page-hero';
 
 @Component({
   selector: 'app-landing-page',
-  imports: [ProductsCardsListComponent, PageHeroComponent],
+  imports: [ProductsCardsListComponent, PageHeroComponent, TranslatePipe],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.scss',
 })

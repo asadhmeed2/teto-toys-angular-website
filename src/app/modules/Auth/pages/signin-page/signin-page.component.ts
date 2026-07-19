@@ -8,12 +8,13 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 import { AppMascotComponent } from '../../../../shared';
 import { AuthApiService } from '../login-page/services/auth-api.service';
 
 @Component({
   selector: 'app-signin-page',
-  imports: [ReactiveFormsModule, RouterLink, AppMascotComponent],
+  imports: [ReactiveFormsModule, RouterLink, AppMascotComponent, TranslatePipe],
   templateUrl: './signin-page.component.html',
   styleUrl: './signin-page.component.scss',
 })

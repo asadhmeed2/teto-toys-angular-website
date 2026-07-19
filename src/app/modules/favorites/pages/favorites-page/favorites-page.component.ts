@@ -1,6 +1,7 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 import { FavoritesApiService } from './services/favorites-api.service';
 import { Product } from '../../../landing/pages/landing-page/services/landing-api.service';
 import { ToastService } from '../../../../shared/services';
@@ -8,7 +9,7 @@ import { ToastService } from '../../../../shared/services';
 @Component({
   selector: 'app-favorites-page',
   standalone: true,
-  imports: [RouterLink, CurrencyPipe],
+  imports: [RouterLink, CurrencyPipe, TranslatePipe],
   templateUrl: './favorites-page.component.html',
   styleUrl: './favorites-page.component.scss',
 })

@@ -1,7 +1,7 @@
 @if (isLoading()) {
   <div class="loading-state">
     <div class="spinner"></div>
-    <p>Loading the catalog...</p>
+    <p>{{ 'productsCards.loading' | translate }}</p>
   </div>
 } @else if (errorMessage()) {
   <div class="error-state">
@@ -9,11 +9,11 @@
       <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
     </svg>
     <p>{{ errorMessage() }}</p>
-    <button class="retry-btn" (click)="retry.emit()">Retry</button>
+    <button class="retry-btn" (click)="retry.emit()">{{ 'common.retry' | translate }}</button>
   </div>
 } @else if (products().length === 0) {
   <div class="empty-state">
-    <p>No products found in the catalog.</p>
+    <p>{{ 'productsCards.empty' | translate }}</p>
   </div>
 } @else {
   <div class="products-grid">
@@ -36,7 +36,7 @@
               </svg>
             </div>
           }
-          <div class="category-badge">{{ categoryMap()[product.category] || 'General' }}</div>
+          <div class="category-badge">{{ categoryMap()[product.category] || ('common.generalCategory' | translate) }}</div>
 
           @if (isAuthenticated()) {
             <button
@@ -44,7 +44,7 @@
               [class.is-favorite]="isFavorite(product.product_id)"
               [disabled]="togglingFavoriteId() === product.product_id"
               (click)="toggleFavorite.emit({ event: $event, product })"
-              [attr.aria-label]="isFavorite(product.product_id) ? 'Remove from favorites' : 'Add to favorites'"
+              [attr.aria-label]="(isFavorite(product.product_id) ? 'productsCards.removeFavorite' : 'productsCards.addFavorite') | translate"
             >
               @if (isFavorite(product.product_id)) {
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -86,7 +86,7 @@
 
           <div class="card-actions">
             <button class="view-details-btn" (click)="viewDetails.emit(product)">
-              <span>View Details</span>
+              <span>{{ 'common.viewDetails' | translate }}</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <line x1="5" y1="12" x2="19" y2="12"></line>
                 <polyline points="12 5 19 12 12 19"></polyline>

@@ -1,18 +1,18 @@
 <div class="landing-container">
   <!-- Hero Section -->
-  <app-page-hero subtitle="Discover premium, high-quality customizable toys and parts.">
-    <span heroTitle>Welcome to <span style="color: var(--brand-green);">Teto Toys</span></span>
+  <app-page-hero [subtitle]="'landing.heroSubtitle' | translate">
+    <span heroTitle>{{ 'landing.heroTitlePrefix' | translate }} <span style="color: var(--brand-green);">Teto Toys</span></span>
   </app-page-hero>
 
   <!-- Products Section -->
   <section class="main-content">
     <div class="section-header">
-      <h2 class="section-title">Featured Products</h2>
+      <h2 class="section-title">{{ 'landing.featuredProducts' | translate }}</h2>
     </div>
 
     <!-- Controls Section: Tabs & Search -->
     <div class="controls-row">
-      <div class="categories-tabs" role="tablist" aria-label="Product categories">
+      <div class="categories-tabs" role="tablist" [attr.aria-label]="'landing.categoriesLabel' | translate">
         <button
           class="tab-btn"
           role="tab"
@@ -20,7 +20,7 @@
           [class.active]="selectedCategory() === 'All'"
           (click)="selectCategory('All')"
         >
-          All
+          {{ 'landing.allCategory' | translate }}
         </button>
         @for (cat of categories(); track cat.id) {
           <button
@@ -51,7 +51,7 @@
         <input
           type="text"
           class="search-input"
-          placeholder="Search products by title..."
+          [attr.placeholder]="'landing.searchPlaceholder' | translate"
           [value]="searchQuery()"
           (keyup)="onSearchKeyup($event)"
         />
