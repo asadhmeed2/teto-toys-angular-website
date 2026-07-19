@@ -2,7 +2,10 @@
   class="sticky top-0 z-[100] bg-[var(--bg-glass)] backdrop-blur-md border-b border-[var(--border-glass)] [transition:var(--transition-smooth)]"
 >
   <div class="max-w-[1200px] mx-auto px-4 py-3 md:px-8 flex justify-between items-center">
-    <a routerLink="/" class="group flex items-center gap-3 no-underline [transition:var(--transition-smooth)] hover:scale-[1.02]">
+    <a
+      routerLink="/"
+      class="group flex items-center gap-3 no-underline [transition:var(--transition-smooth)] hover:scale-[1.02]"
+    >
       <div
         class="w-[46px] h-[46px] flex items-center justify-center [transition:var(--transition-smooth)] group-hover:rotate-[-3deg] group-hover:scale-105"
       >
@@ -11,10 +14,12 @@
       <div class="flex flex-col justify-center">
         <span
           class="[font-family:var(--font-display)] text-[1.45rem] font-bold tracking-[-0.01em] text-[var(--text-accent)] leading-[1.1]"
-        >TETO TOYS</span>
+          >TETO TOYS</span
+        >
         <span
           class="[font-family:var(--font-family)] text-[0.68rem] font-semibold text-[#3b82f6] tracking-[0.04em] leading-[1.2] mt-px"
-        >{{ 'header.tagline' | translate }}</span>
+          >{{ 'header.tagline' | translate }}</span
+        >
       </div>
     </a>
 
@@ -27,42 +32,31 @@
       <a
         routerLink="/landing"
         routerLinkActive="active"
-        class="relative w-full md:w-auto py-3.5 md:py-2 px-2 md:px-0 text-[0.95rem] font-semibold text-[var(--text-secondary)] [font-family:var(--font-family)]
-               hover:text-[var(--text-primary)]
-               md:after:content-[''] md:after:absolute md:after:bottom-0 md:after:left-1/2 md:after:-translate-x-1/2 md:after:w-0 md:after:h-[3px] md:after:bg-[var(--brand-green)] md:after:rounded-full md:after:[transition:var(--transition-smooth)]
-               md:hover:after:w-full
-               [&.active]:text-[var(--text-accent)] md:[&.active]:after:w-[60%]"
+        class="relative w-full md:w-auto py-3.5 md:py-2 px-2 md:px-0 text-[0.95rem] font-semibold text-[var(--text-secondary)] [font-family:var(--font-family)] hover:text-[var(--text-primary)] md:after:content-[''] md:after:absolute md:after:bottom-0 md:after:left-1/2 md:after:-translate-x-1/2 md:after:w-0 md:after:h-[3px] md:after:bg-[var(--brand-green)] md:after:rounded-full md:after:[transition:var(--transition-smooth)] md:hover:after:w-full [&.active]:text-[var(--text-accent)] md:[&.active]:after:w-[60%]"
         (click)="mobileNavOpen.set(false)"
-      >{{ 'header.navShopAll' | translate }}</a>
+        >{{ 'header.navShopAll' | translate }}</a
+      >
       <a
         routerLink="/about"
         routerLinkActive="active"
-        class="relative w-full md:w-auto py-3.5 md:py-2 px-2 md:px-0 text-[0.95rem] font-semibold text-[var(--text-secondary)] [font-family:var(--font-family)]
-               hover:text-[var(--text-primary)]
-               md:after:content-[''] md:after:absolute md:after:bottom-0 md:after:left-1/2 md:after:-translate-x-1/2 md:after:w-0 md:after:h-[3px] md:after:bg-[var(--brand-green)] md:after:rounded-full md:after:[transition:var(--transition-smooth)]
-               md:hover:after:w-full
-               [&.active]:text-[var(--text-accent)] md:[&.active]:after:w-[60%]"
+        class="relative w-full md:w-auto py-3.5 md:py-2 px-2 md:px-0 text-[0.95rem] font-semibold text-[var(--text-secondary)] [font-family:var(--font-family)] hover:text-[var(--text-primary)] md:after:content-[''] md:after:absolute md:after:bottom-0 md:after:left-1/2 md:after:-translate-x-1/2 md:after:w-0 md:after:h-[3px] md:after:bg-[var(--brand-green)] md:after:rounded-full md:after:[transition:var(--transition-smooth)] md:hover:after:w-full [&.active]:text-[var(--text-accent)] md:[&.active]:after:w-[60%]"
         (click)="mobileNavOpen.set(false)"
-      >{{ 'header.navAbout' | translate }}</a>
+        >{{ 'header.navAbout' | translate }}</a
+      >
       <a
         routerLink="/contact"
         routerLinkActive="active"
-        class="relative w-full md:w-auto py-3.5 md:py-2 px-2 md:px-0 text-[0.95rem] font-semibold text-[var(--text-secondary)] [font-family:var(--font-family)]
-               hover:text-[var(--text-primary)]
-               md:after:content-[''] md:after:absolute md:after:bottom-0 md:after:left-1/2 md:after:-translate-x-1/2 md:after:w-0 md:after:h-[3px] md:after:bg-[var(--brand-green)] md:after:rounded-full md:after:[transition:var(--transition-smooth)]
-               md:hover:after:w-full
-               [&.active]:text-[var(--text-accent)] md:[&.active]:after:w-[60%]"
+        class="relative w-full md:w-auto py-3.5 md:py-2 px-2 md:px-0 text-[0.95rem] font-semibold text-[var(--text-secondary)] [font-family:var(--font-family)] hover:text-[var(--text-primary)] md:after:content-[''] md:after:absolute md:after:bottom-0 md:after:left-1/2 md:after:-translate-x-1/2 md:after:w-0 md:after:h-[3px] md:after:bg-[var(--brand-green)] md:after:rounded-full md:after:[transition:var(--transition-smooth)] md:hover:after:w-full [&.active]:text-[var(--text-accent)] md:[&.active]:after:w-[60%]"
         (click)="mobileNavOpen.set(false)"
-      >{{ 'header.navContact' | translate }}</a>
+        >{{ 'header.navContact' | translate }}</a
+      >
     </nav>
 
     <div class="flex items-center gap-3">
       <!-- Mobile nav toggle: only rendered/visible below the nav-collapse breakpoint -->
       <button
         id="mobile-nav-toggle"
-        class="order-[-1] flex md:hidden size-10 pointer-coarse:size-11 rounded-full border-0 bg-transparent text-[var(--text-secondary)] items-center justify-center cursor-pointer [transition:var(--transition-smooth)]
-               hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)]
-               aria-expanded:bg-[var(--bg-tertiary)] aria-expanded:text-[var(--text-accent)]"
+        class="order-[-1] flex md:hidden size-10 pointer-coarse:size-11 rounded-full border-0 bg-transparent text-[var(--text-secondary)] items-center justify-center cursor-pointer [transition:var(--transition-smooth)] hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)] aria-expanded:bg-[var(--bg-tertiary)] aria-expanded:text-[var(--text-accent)]"
         type="button"
         (click)="toggleMobileNav()"
         [attr.aria-expanded]="mobileNavOpen()"
@@ -70,12 +64,28 @@
         [attr.aria-label]="'header.toggleNav' | translate"
       >
         @if (mobileNavOpen()) {
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="size-[22px] [stroke-width:2.2]" stroke="currentColor">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            class="size-[22px] [stroke-width:2.2]"
+            stroke="currentColor"
+          >
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         } @else {
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="size-[22px] [stroke-width:2.2]" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            class="size-[22px] [stroke-width:2.2]"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5"
+            />
           </svg>
         }
       </button>
@@ -83,14 +93,14 @@
       <!-- Language selector: drives translated content + RTL/LTR layout direction -->
       @if (languageService.languages().length > 0) {
         <select
-          class="h-10 pointer-coarse:h-11 px-2 rounded-full border-[1.5px] border-[var(--border-glass)] bg-[var(--bg-secondary)] text-sm font-semibold text-[var(--text-primary)] [font-family:var(--font-family)] cursor-pointer [transition:var(--transition-smooth)]
-                 hover:border-[var(--brand-green)] focus:border-[var(--brand-green)] focus:outline-none"
-          [value]="languageService.current()"
+          class="h-10 pointer-coarse:h-11 px-2 rounded-full border-[1.5px] border-[var(--border-glass)] bg-[var(--bg-secondary)] text-sm font-semibold text-[var(--text-primary)] [font-family:var(--font-family)] cursor-pointer [transition:var(--transition-smooth)] hover:border-[var(--brand-green)] focus:border-[var(--brand-green)] focus:outline-none"
           (change)="languageService.setLanguage($any($event.target).value)"
           [attr.aria-label]="'header.selectLanguage' | translate"
         >
           @for (l of languageService.languages(); track l.code) {
-            <option [value]="l.code">{{ l.name }}</option>
+            <option [value]="l.code" [selected]="l.code === languageService.current()">
+              {{ l.name }}
+            </option>
           }
         </select>
       }
@@ -98,8 +108,7 @@
       <!-- Search Icon: search only lives on the catalog page today -->
       <a
         routerLink="/landing"
-        class="relative size-10 pointer-coarse:size-11 rounded-full bg-transparent text-[var(--text-secondary)] flex items-center justify-center cursor-pointer [transition:var(--transition-smooth)]
-               hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)] hover:-translate-y-px active:translate-y-0"
+        class="relative size-10 pointer-coarse:size-11 rounded-full bg-transparent text-[var(--text-secondary)] flex items-center justify-center cursor-pointer [transition:var(--transition-smooth)] hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)] hover:-translate-y-px active:translate-y-0"
         [attr.aria-label]="'header.searchProducts' | translate"
       >
         <svg
@@ -121,9 +130,7 @@
       @if (authService.isAuthenticated()) {
         <div id="user-menu-wrapper" class="relative">
           <button
-            class="flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-full border-[1.5px] border-[var(--border-glass)] bg-[var(--bg-secondary)] cursor-pointer [transition:var(--transition-smooth)] [font-family:var(--font-family)] text-[var(--text-primary)]
-                   hover:bg-[var(--bg-tertiary)] hover:border-[var(--brand-green)]
-                   [&.open]:bg-[var(--bg-tertiary)] [&.open]:border-[var(--brand-green)]"
+            class="flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-full border-[1.5px] border-[var(--border-glass)] bg-[var(--bg-secondary)] cursor-pointer [transition:var(--transition-smooth)] [font-family:var(--font-family)] text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] hover:border-[var(--brand-green)] [&.open]:bg-[var(--bg-tertiary)] [&.open]:border-[var(--brand-green)]"
             (click)="toggleMenu()"
             [class.open]="menuOpen()"
             [attr.aria-label]="'header.userMenu' | translate"
@@ -146,7 +153,9 @@
                 />
               </svg>
             </span>
-            <span class="text-sm font-semibold text-[var(--text-primary)] max-w-[120px] truncate">{{ authService.username() || ('header.account' | translate) }}</span>
+            <span class="text-sm font-semibold text-[var(--text-primary)] max-w-[120px] truncate">{{
+              authService.username() || ('header.account' | translate)
+            }}</span>
             <span
               class="flex items-center transition-transform duration-200 [&.rotated]:rotate-180"
               [class.rotated]="menuOpen()"
@@ -173,13 +182,14 @@
               role="menu"
             >
               <div class="pt-3.5 px-4 pb-3">
-                <p class="text-[0.8rem] text-[var(--text-secondary)] font-medium m-0 truncate">{{ authService.username() }}</p>
+                <p class="text-[0.8rem] text-[var(--text-secondary)] font-medium m-0 truncate">
+                  {{ authService.username() }}
+                </p>
               </div>
               <div class="h-px bg-[var(--border-glass)] m-0"></div>
               <a
                 routerLink="/profile"
-                class="group flex items-center gap-2.5 px-4 py-3 text-[0.9rem] font-medium [font-family:var(--font-family)] text-[var(--text-primary)] no-underline cursor-pointer border-0 bg-transparent w-full text-left transition-[background,color] duration-150 ease-in-out
-                       hover:bg-[var(--bg-secondary)] hover:text-[var(--brand-green)]"
+                class="group flex items-center gap-2.5 px-4 py-3 text-[0.9rem] font-medium [font-family:var(--font-family)] text-[var(--text-primary)] no-underline cursor-pointer border-0 bg-transparent w-full text-left transition-[background,color] duration-150 ease-in-out hover:bg-[var(--bg-secondary)] hover:text-[var(--brand-green)]"
                 (click)="menuOpen.set(false)"
                 role="menuitem"
                 id="menu-profile"
@@ -202,8 +212,7 @@
               </a>
               <a
                 routerLink="/favorites"
-                class="group flex items-center gap-2.5 px-4 py-3 text-[0.9rem] font-medium [font-family:var(--font-family)] text-[var(--text-primary)] no-underline cursor-pointer border-0 bg-transparent w-full text-left transition-[background,color] duration-150 ease-in-out
-                       hover:bg-[var(--bg-secondary)] hover:text-[var(--brand-green)]"
+                class="group flex items-center gap-2.5 px-4 py-3 text-[0.9rem] font-medium [font-family:var(--font-family)] text-[var(--text-primary)] no-underline cursor-pointer border-0 bg-transparent w-full text-left transition-[background,color] duration-150 ease-in-out hover:bg-[var(--bg-secondary)] hover:text-[var(--brand-green)]"
                 (click)="menuOpen.set(false)"
                 role="menuitem"
                 id="menu-favorites"
@@ -226,8 +235,7 @@
               </a>
               <div class="h-px bg-[var(--border-glass)] m-0"></div>
               <button
-                class="group flex items-center gap-2.5 px-4 py-3 text-[0.9rem] font-medium [font-family:var(--font-family)] text-[var(--text-primary)] cursor-pointer border-0 bg-transparent w-full text-left transition-[background,color] duration-150 ease-in-out
-                       hover:bg-[rgba(239,68,68,0.07)] hover:text-[#ef4444]"
+                class="group flex items-center gap-2.5 px-4 py-3 text-[0.9rem] font-medium [font-family:var(--font-family)] text-[var(--text-primary)] cursor-pointer border-0 bg-transparent w-full text-left transition-[background,color] duration-150 ease-in-out hover:bg-[rgba(239,68,68,0.07)] hover:text-[#ef4444]"
                 (click)="logout()"
                 role="menuitem"
                 id="menu-logout"
@@ -254,8 +262,7 @@
       } @else {
         <a
           routerLink="/login"
-          class="relative size-10 pointer-coarse:size-11 rounded-full bg-transparent text-[var(--text-secondary)] flex items-center justify-center cursor-pointer [transition:var(--transition-smooth)]
-                 hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)] hover:-translate-y-px active:translate-y-0"
+          class="relative size-10 pointer-coarse:size-11 rounded-full bg-transparent text-[var(--text-secondary)] flex items-center justify-center cursor-pointer [transition:var(--transition-smooth)] hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)] hover:-translate-y-px active:translate-y-0"
           [attr.aria-label]="'header.account' | translate"
         >
           <svg
