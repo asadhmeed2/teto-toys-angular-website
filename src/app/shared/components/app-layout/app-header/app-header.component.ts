@@ -4,10 +4,11 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { AppMascotComponent } from '../../app-mascot';
 import { AuthService, LanguageService } from '../../../services';
 import { AuthApiService } from '../../../../modules/Auth/pages/login-page/services/auth-api.service';
+import { UpperCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, RouterLinkActive, AppMascotComponent, TranslatePipe],
+  imports: [RouterLink, RouterLinkActive, AppMascotComponent, TranslatePipe, UpperCasePipe],
   templateUrl: './app-header.component.html',
 })
 export class AppHeaderComponent implements OnInit {
@@ -22,13 +23,23 @@ export class AppHeaderComponent implements OnInit {
 
   readonly menuOpen = signal(false);
   readonly mobileNavOpen = signal(false);
+  readonly langMenuOpen = signal(false);
 
   toggleMenu(): void {
-    this.menuOpen.update(v => !v);
+    this.menuOpen.update((v) => !v);
   }
 
   toggleMobileNav(): void {
-    this.mobileNavOpen.update(v => !v);
+    this.mobileNavOpen.update((v) => !v);
+  }
+
+  toggleLangMenu(): void {
+    this.langMenuOpen.update((v) => !v);
+  }
+
+  selectLanguage(code: string): void {
+    this.languageService.setLanguage(code);
+    this.langMenuOpen.set(false);
   }
 
   @HostListener('document:click', ['$event'])
@@ -36,6 +47,9 @@ export class AppHeaderComponent implements OnInit {
     const target = event.target as HTMLElement;
     if (!target.closest('#user-menu-wrapper')) {
       this.menuOpen.set(false);
+    }
+    if (!target.closest('#lang-menu-wrapper')) {
+      this.langMenuOpen.set(false);
     }
     if (!target.closest('#mobile-nav') && !target.closest('#mobile-nav-toggle')) {
       this.mobileNavOpen.set(false);
