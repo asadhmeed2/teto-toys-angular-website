@@ -23,6 +23,25 @@
       </div>
     </a>
 
+    <!-- Open/Closed badge — hidden until the store-hours request resolves -->
+    @if (storeHoursService.isOpenNow() !== null) {
+      <span
+        class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[0.72rem] font-bold uppercase tracking-[0.04em] [font-family:var(--font-family)]"
+        [class.text-[var(--brand-green)]]="storeHoursService.isOpenNow()"
+        [class.text-[var(--brand-red)]]="!storeHoursService.isOpenNow()"
+        [style.background]="
+          storeHoursService.isOpenNow() ? 'rgba(8,184,128,0.12)' : 'rgba(255,51,77,0.12)'
+        "
+        [title]="storeHoursTooltip()"
+      >
+        <span
+          class="w-1.5 h-1.5 rounded-full bg-current"
+          [class.animate-pulse]="storeHoursService.isOpenNow()"
+        ></span>
+        {{ storeHoursService.isOpenNow() ? 'Open' : 'Closed' }}
+      </span>
+    }
+
     <nav
       id="mobile-nav"
       class="absolute md:static md:flex top-full inset-x-0 md:inset-x-auto flex-col md:flex-row items-stretch md:items-center gap-0 md:gap-7 bg-[var(--bg-primary)] md:bg-transparent border-b md:border-b-0 border-[var(--border-glass)] shadow-[0_8px_24px_rgba(0,0,0,0.08)] md:shadow-none px-4 md:px-0 pt-2 pb-4 md:py-0 z-[150] animate-[mobile-nav-in_0.15s_ease-out] md:animate-none"

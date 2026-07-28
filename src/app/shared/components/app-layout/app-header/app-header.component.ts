@@ -2,7 +2,7 @@ import { Component, OnInit, inject, signal, HostListener } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { AppMascotComponent } from '../../app-mascot';
-import { AuthService, LanguageService } from '../../../services';
+import { AuthService, LanguageService, StoreHoursService } from '../../../services';
 import { AuthApiService } from '../../../../modules/Auth/pages/login-page/services/auth-api.service';
 import { UpperCasePipe } from '@angular/common';
 
@@ -14,16 +14,27 @@ import { UpperCasePipe } from '@angular/common';
 export class AppHeaderComponent implements OnInit {
   readonly authService = inject(AuthService);
   readonly languageService = inject(LanguageService);
+  readonly storeHoursService = inject(StoreHoursService);
   private readonly authApiService = inject(AuthApiService);
   private readonly router = inject(Router);
 
   ngOnInit(): void {
     this.languageService.load();
+    // Open/closed badge — server-computed, so a wrong device clock can't skew it.
+    this.storeHoursService.load();
   }
 
   readonly menuOpen = signal(false);
   readonly mobileNavOpen = signal(false);
   readonly langMenuOpen = signal(false);
+
+  /** Hover text for the open/closed badge, e.g. "Today: 09:00 - 18:00". */
+  storeHoursTooltip(): string {
+    const today = this.storeHoursService.todaysHours();
+    if (!today) return '';
+    if (today.is_closed) return 'Closed today';
+    return `Today: ${today.open_time} - ${today.close_time}`;
+  }
 
   toggleMenu(): void {
     this.menuOpen.update((v) => !v);
