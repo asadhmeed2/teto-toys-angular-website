@@ -23,23 +23,28 @@
       </div>
     </a>
 
-    <!-- Open/Closed badge — hidden until the store-hours request resolves -->
+    <!-- Open/Closed chip — hidden until the store-hours request resolves.
+         Click opens the full weekly schedule. -->
     @if (storeHoursService.isOpenNow() !== null) {
-      <span
-        class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[0.72rem] font-bold uppercase tracking-[0.04em] [font-family:var(--font-family)]"
+      <button
+        type="button"
+        (click)="openStoreHoursModal()"
+        [attr.aria-label]="'storeHours.viewHours' | translate"
+        class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border-0 cursor-pointer text-[0.72rem] font-bold uppercase tracking-[0.04em] [font-family:var(--font-family)] [transition:var(--transition-smooth)] hover:scale-105"
         [class.text-[var(--brand-green)]]="storeHoursService.isOpenNow()"
         [class.text-[var(--brand-red)]]="!storeHoursService.isOpenNow()"
         [style.background]="
           storeHoursService.isOpenNow() ? 'rgba(8,184,128,0.12)' : 'rgba(255,51,77,0.12)'
         "
-        [title]="storeHoursTooltip()"
       >
         <span
           class="w-1.5 h-1.5 rounded-full bg-current"
           [class.animate-pulse]="storeHoursService.isOpenNow()"
         ></span>
-        {{ storeHoursService.isOpenNow() ? 'Open' : 'Closed' }}
-      </span>
+        {{
+          (storeHoursService.isOpenNow() ? 'storeHours.open' : 'storeHours.closed') | translate
+        }}
+      </button>
     }
 
     <nav
@@ -379,3 +384,56 @@
     </div>
   </div>
 </header>
+
+<!-- Weekly opening hours, opened from the Open/Closed chip -->
+<app-modal
+  [open]="storeHoursModalOpen()"
+  [title]="'storeHours.title' | translate"
+  [closeLabel]="'storeHours.close' | translate"
+  maxWidth="440px"
+  (closed)="closeStoreHoursModal()"
+>
+  <ul class="list-none m-0 p-0 flex flex-col">
+    @for (day of storeHoursService.hours(); track day.day_of_week) {
+      <li
+        class="flex items-center justify-between gap-4 py-2.5 border-b border-[var(--border-glass)] last:border-b-0"
+      >
+        <span
+          class="text-[0.95rem] [font-family:var(--font-family)]"
+          [class.font-bold]="day.day_of_week === todayIndex"
+          [class.text-[var(--text-accent)]]="day.day_of_week === todayIndex"
+          [class.font-medium]="day.day_of_week !== todayIndex"
+          [class.text-[var(--text-secondary)]]="day.day_of_week !== todayIndex"
+        >
+          {{ 'storeHours.days.' + day.day_of_week | translate }}
+          @if (day.day_of_week === todayIndex) {
+            <span
+              class="ms-1.5 px-1.5 py-0.5 rounded text-[0.62rem] font-bold uppercase tracking-[0.04em] text-[var(--brand-green)]"
+              style="background: rgba(8, 184, 128, 0.12)"
+            >
+              {{ 'storeHours.today' | translate }}
+            </span>
+          }
+        </span>
+
+        @if (day.is_closed) {
+          <span class="text-[0.9rem] font-semibold text-[var(--brand-red)]">
+            {{ 'storeHours.closed' | translate }}
+          </span>
+        } @else {
+          <!-- dir=ltr keeps the time range reading 09:00 - 18:00 in RTL locales -->
+          <span
+            dir="ltr"
+            class="text-[0.9rem] font-semibold text-[var(--text-primary)] tabular-nums"
+          >
+            {{ day.open_time }} - {{ day.close_time }}
+          </span>
+        }
+      </li>
+    }
+  </ul>
+
+  <p class="mt-4 mb-0 text-[0.78rem] leading-relaxed text-[var(--text-secondary)]">
+    {{ 'storeHours.timezoneNote' | translate }}
+  </p>
+</app-modal>

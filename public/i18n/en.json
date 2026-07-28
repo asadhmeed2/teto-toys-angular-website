@@ -172,5 +172,24 @@
     "ctaTitle": "Ready to build something great?",
     "ctaBody": "Browse our full catalog and find your next favourite piece.",
     "ctaButton": "Shop Now"
+  },
+  "storeHours": {
+    "title": "Opening Hours",
+    "open": "Open",
+    "closed": "Closed",
+    "closedToday": "Closed today",
+    "today": "Today",
+    "viewHours": "View opening hours",
+    "close": "Close",
+    "timezoneNote": "All times shown in store local time.",
+    "days": {
+      "0": "Sunday",
+      "1": "Monday",
+      "2": "Tuesday",
+      "3": "Wednesday",
+      "4": "Thursday",
+      "5": "Friday",
+      "6": "Saturday"
+    }
   }
 }

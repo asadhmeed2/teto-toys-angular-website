@@ -2,13 +2,21 @@ import { Component, OnInit, inject, signal, HostListener } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { AppMascotComponent } from '../../app-mascot';
+import { ModalComponent } from '../../modal';
 import { AuthService, LanguageService, StoreHoursService } from '../../../services';
 import { AuthApiService } from '../../../../modules/Auth/pages/login-page/services/auth-api.service';
 import { UpperCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, RouterLinkActive, AppMascotComponent, TranslatePipe, UpperCasePipe],
+  imports: [
+    RouterLink,
+    RouterLinkActive,
+    AppMascotComponent,
+    ModalComponent,
+    TranslatePipe,
+    UpperCasePipe,
+  ],
   templateUrl: './app-header.component.html',
 })
 export class AppHeaderComponent implements OnInit {
@@ -27,13 +35,17 @@ export class AppHeaderComponent implements OnInit {
   readonly menuOpen = signal(false);
   readonly mobileNavOpen = signal(false);
   readonly langMenuOpen = signal(false);
+  readonly storeHoursModalOpen = signal(false);
 
-  /** Hover text for the open/closed badge, e.g. "Today: 09:00 - 18:00". */
-  storeHoursTooltip(): string {
-    const today = this.storeHoursService.todaysHours();
-    if (!today) return '';
-    if (today.is_closed) return 'Closed today';
-    return `Today: ${today.open_time} - ${today.close_time}`;
+  /** Weekday index (0 = Sunday) used only to highlight the current row. */
+  readonly todayIndex = new Date().getDay();
+
+  openStoreHoursModal(): void {
+    this.storeHoursModalOpen.set(true);
+  }
+
+  closeStoreHoursModal(): void {
+    this.storeHoursModalOpen.set(false);
   }
 
   toggleMenu(): void {

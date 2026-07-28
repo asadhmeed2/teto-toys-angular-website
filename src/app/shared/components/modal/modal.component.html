@@ -1,0 +1,38 @@
+@if (open()) {
+  <div
+    class="fixed inset-0 z-[1000] flex items-center justify-center p-5 bg-[rgba(15,23,42,0.6)] backdrop-blur-[6px] animate-[modal-fade-in_0.2s_ease]"
+    (click)="onClose()"
+  >
+    <div
+      role="dialog"
+      aria-modal="true"
+      class="w-full flex flex-col bg-[var(--bg-primary)] border border-[var(--border-glass)] rounded-[20px] shadow-[0_20px_50px_rgba(0,0,0,0.25)] animate-[modal-scale-in_0.2s_cubic-bezier(0.34,1.56,0.64,1)] overflow-hidden"
+      [style.max-width]="maxWidth()"
+      (click)="$event.stopPropagation()"
+    >
+      <!-- Header -->
+      <header
+        class="flex items-center justify-between gap-4 px-6 py-4 border-b border-[var(--border-glass)]"
+      >
+        <h3
+          class="m-0 text-lg font-bold text-[var(--text-primary)] [font-family:var(--font-display)]"
+        >
+          {{ title() }}
+        </h3>
+        <button
+          type="button"
+          (click)="onClose()"
+          [attr.aria-label]="closeLabel()"
+          class="flex items-center justify-center w-8 h-8 shrink-0 rounded-lg bg-transparent border-0 cursor-pointer text-2xl leading-none text-[var(--text-secondary)] hover:text-[var(--brand-red)] transition-colors"
+        >
+          &times;
+        </button>
+      </header>
+
+      <!-- Projected body -->
+      <div class="px-6 py-5">
+        <ng-content />
+      </div>
+    </div>
+  </div>
+}
