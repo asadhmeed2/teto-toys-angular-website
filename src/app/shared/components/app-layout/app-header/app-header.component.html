@@ -24,13 +24,15 @@
     </a>
 
     <!-- Open/Closed chip — hidden until the store-hours request resolves.
-         Click opens the full weekly schedule. -->
+         Click opens the full weekly schedule.
+         Below 634px the header runs out of room, so the floating variant
+         rendered after the header element takes over instead. -->
     @if (storeHoursService.isOpenNow() !== null) {
       <button
         type="button"
         (click)="openStoreHoursModal()"
         [attr.aria-label]="'storeHours.viewHours' | translate"
-        class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border-0 cursor-pointer text-[0.72rem] font-bold uppercase tracking-[0.04em] [font-family:var(--font-family)] [transition:var(--transition-smooth)] hover:scale-105"
+        class="hidden min-[634px]:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border-0 cursor-pointer text-[0.72rem] font-bold uppercase tracking-[0.04em] [font-family:var(--font-family)] [transition:var(--transition-smooth)] hover:scale-105"
         [class.text-[var(--brand-green)]]="storeHoursService.isOpenNow()"
         [class.text-[var(--brand-red)]]="!storeHoursService.isOpenNow()"
         [style.background]="
@@ -384,6 +386,26 @@
     </div>
   </div>
 </header>
+
+<!-- Floating Open/Closed button for narrow screens (<634px), where the header
+     has no room for the inline chip. Sits just under the sticky header and
+     behaves identically — same click target, same modal. -->
+@if (storeHoursService.isOpenNow() !== null) {
+  <button
+    type="button"
+    (click)="openStoreHoursModal()"
+    [attr.aria-label]="'storeHours.viewHours' | translate"
+    class="min-[634px]:hidden fixed top-[80px] end-4 z-[90] inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full cursor-pointer border border-[var(--border-glass)] bg-[var(--bg-glass)] backdrop-blur-md shadow-[0_4px_14px_rgba(0,0,0,0.15)] text-[0.72rem] font-bold uppercase tracking-[0.04em] [font-family:var(--font-family)] [transition:var(--transition-smooth)] hover:scale-105 active:scale-95"
+    [class.text-[var(--brand-green)]]="storeHoursService.isOpenNow()"
+    [class.text-[var(--brand-red)]]="!storeHoursService.isOpenNow()"
+  >
+    <span
+      class="w-1.5 h-1.5 rounded-full bg-current"
+      [class.animate-pulse]="storeHoursService.isOpenNow()"
+    ></span>
+    {{ (storeHoursService.isOpenNow() ? 'storeHours.open' : 'storeHours.closed') | translate }}
+  </button>
+}
 
 <!-- Weekly opening hours, opened from the Open/Closed chip -->
 <app-modal
