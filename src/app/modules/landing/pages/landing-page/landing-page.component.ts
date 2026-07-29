@@ -6,6 +6,7 @@ import { FavoritesApiService } from '../../../favorites/pages/favorites-page/ser
 import { AuthService, ToastService } from '../../../../shared/services';
 import { ProductsCardsListComponent } from '../../components/products-cards-list';
 import { PageHeroComponent } from '../../../../shared/components/page-hero';
+import { debouncedSearch } from '../../../../shared/utils/debounced-search';
 
 @Component({
   selector: 'app-landing-page',
@@ -32,7 +33,14 @@ export class LandingPageComponent implements OnInit {
   protected readonly favoriteIds = signal<Set<string>>(new Set());
   protected readonly togglingFavoriteId = signal<string | null>(null);
 
-  private searchTimeout?: ReturnType<typeof setTimeout>;
+  /**
+   * Debounced — only searches once the user stops typing. Uses the shared helper
+   * so the pending emission is cancelled if the page is left mid-timer, which the
+   * previous raw setTimeout did not do.
+   */
+  readonly onSearchKeyup = debouncedSearch((value) => {
+    void this.onSearch(value);
+  });
 
   async ngOnInit(): Promise<void> {
     this.isLoading.set(true);
@@ -125,14 +133,4 @@ export class LandingPageComponent implements OnInit {
     }
   }
 
-  onSearchKeyup(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    const value = input.value;
-    if (this.searchTimeout) {
-      clearTimeout(this.searchTimeout);
-    }
-    this.searchTimeout = setTimeout(async () => {
-      await this.onSearch(value);
-    }, 300);
-  }
 }
