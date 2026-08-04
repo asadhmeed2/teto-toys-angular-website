@@ -31,5 +31,11 @@
       <ng-content select="[heroSubtitle]">{{ subtitle() }}</ng-content>
     </p>
 
+    <!--
+      ponytail: optional slot for calls to action below the subtitle (social links,
+      buttons). Renders nothing when a page projects no [heroActions] content.
+    -->
+    <ng-content select="[heroActions]" />
+
   </div>
 </header>
