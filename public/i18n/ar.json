@@ -48,7 +48,10 @@
     "browseProducts": "تصفح المنتجات",
     "addParts": "إضافة قطع",
     "removeFavorite": "إزالة من المفضلة",
-    "addFavorite": "إضافة إلى المفضلة"
+    "addFavorite": "إضافة إلى المفضلة",
+    "previousImage": "الصورة السابقة",
+    "nextImage": "الصورة التالية",
+    "goToImage": "الانتقال إلى الصورة"
   },
   "favorites": {
     "title": "مفضلتي",

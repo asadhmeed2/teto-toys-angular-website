@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal, computed } from '@angular/core';
+import { Component, HostListener, OnInit, inject, signal, computed } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -24,6 +24,20 @@ export class ProductDetailPageComponent implements OnInit {
   protected readonly categoryMap = signal<Record<number, string>>({});
   protected readonly isFavorite = signal(false);
   protected readonly togglingFavorite = signal(false);
+
+  // ── Image gallery ───────────────────────────────────────────────────────────
+  // image_urls is ordered: index 0 is the primary image the catalogue shows, and
+  // the admin can reorder it. The gallery just walks that array.
+  protected readonly currentImageIndex = signal(0);
+
+  protected readonly images = computed(() => this.product()?.image_urls ?? []);
+  protected readonly hasMultipleImages = computed(() => this.images().length > 1);
+
+  /** Guarded by index so a stale index can't blank the image mid-navigation. */
+  protected readonly currentImage = computed(() => {
+    const list = this.images();
+    return list.length === 0 ? null : list[this.currentImageIndex() % list.length];
+  });
 
   protected readonly parts = signal<Part[]>([]);
   protected readonly selectedPartIds = signal<ReadonlySet<string>>(new Set());
@@ -62,6 +76,45 @@ export class ProductDetailPageComponent implements OnInit {
       this.parts.set(allParts.filter(part => partIds.includes(part.part_id)));
     } catch {
       // parts are an optional customization — a failed lookup shouldn't block the product page
+    }
+  }
+
+  // Wrapping rather than disabling at the ends: with only two buttons, a dead
+  // control at each end is more annoying than looping a short image list.
+  protected nextImage(): void {
+    const count = this.images().length;
+    if (count < 2) return;
+    this.currentImageIndex.update((i) => (i + 1) % count);
+  }
+
+  protected previousImage(): void {
+    const count = this.images().length;
+    if (count < 2) return;
+    this.currentImageIndex.update((i) => (i - 1 + count) % count);
+  }
+
+  protected goToImage(index: number): void {
+    if (index >= 0 && index < this.images().length) {
+      this.currentImageIndex.set(index);
+    }
+  }
+
+  /**
+   * Arrow keys move through the gallery. Physical direction is kept in RTL —
+   * the buttons mirror visually, but users still expect Right to advance.
+   */
+  @HostListener('document:keydown', ['$event'])
+  protected onKeydown(event: KeyboardEvent): void {
+    if (!this.hasMultipleImages()) return;
+
+    // Don't hijack arrows while the user is typing or using a control.
+    const target = event.target as HTMLElement | null;
+    if (target?.closest('input, textarea, select, [contenteditable="true"]')) return;
+
+    if (event.key === 'ArrowRight') {
+      this.nextImage();
+    } else if (event.key === 'ArrowLeft') {
+      this.previousImage();
     }
   }
 

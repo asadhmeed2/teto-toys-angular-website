@@ -34,8 +34,51 @@
   } @else if (product(); as p) {
     <article class="product-detail">
       <div class="detail-image-wrapper">
-        @if (p.image_urls && p.image_urls.length > 0) {
-          <img [src]="p.image_urls[0]" [alt]="p.title" class="detail-image" />
+        @if (currentImage(); as image) {
+          <img [src]="image" [alt]="p.title" class="detail-image" />
+
+          <!-- Only worth showing when there's more than one image to move between -->
+          @if (hasMultipleImages()) {
+            <button
+              type="button"
+              class="gallery-nav gallery-nav--prev"
+              (click)="previousImage()"
+              [attr.aria-label]="'productDetail.previousImage' | translate"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+              </svg>
+            </button>
+
+            <button
+              type="button"
+              class="gallery-nav gallery-nav--next"
+              (click)="nextImage()"
+              [attr.aria-label]="'productDetail.nextImage' | translate"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+              </svg>
+            </button>
+
+            <!-- dir=ltr keeps "2 / 5" reading the same way in RTL locales -->
+            <div class="gallery-counter" dir="ltr">
+              {{ currentImageIndex() + 1 }} / {{ images().length }}
+            </div>
+
+            <div class="gallery-dots">
+              @for (image of images(); track $index) {
+                <button
+                  type="button"
+                  class="gallery-dot"
+                  [class.is-active]="$index === currentImageIndex()"
+                  (click)="goToImage($index)"
+                  [attr.aria-label]="('productDetail.goToImage' | translate) + ' ' + ($index + 1)"
+                  [attr.aria-current]="$index === currentImageIndex() ? 'true' : null"
+                ></button>
+              }
+            </div>
+          }
         } @else {
           <div class="image-placeholder">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">

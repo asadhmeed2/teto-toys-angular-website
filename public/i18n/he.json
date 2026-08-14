@@ -48,7 +48,10 @@
     "browseProducts": "עיון במוצרים",
     "addParts": "הוספת חלקים",
     "removeFavorite": "הסר מהמועדפים",
-    "addFavorite": "הוסף למועדפים"
+    "addFavorite": "הוסף למועדפים",
+    "previousImage": "התמונה הקודמת",
+    "nextImage": "התמונה הבאה",
+    "goToImage": "עבור לתמונה"
   },
   "favorites": {
     "title": "המועדפים שלי",

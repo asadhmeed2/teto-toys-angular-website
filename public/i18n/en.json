@@ -48,7 +48,10 @@
     "browseProducts": "Browse Products",
     "addParts": "Add parts",
     "removeFavorite": "Remove from Favorites",
-    "addFavorite": "Add to Favorites"
+    "addFavorite": "Add to Favorites",
+    "previousImage": "Previous image",
+    "nextImage": "Next image",
+    "goToImage": "Go to image"
   },
   "favorites": {
     "title": "My Favorites",

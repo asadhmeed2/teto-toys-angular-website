@@ -68,6 +68,102 @@
     }
   }
 
+  // ── Image gallery ─────────────────────────────────────────────────────────
+  // Positioned with logical properties so the controls mirror automatically in
+  // the RTL locales instead of landing on the wrong side.
+  .gallery-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(4px);
+    color: #ffffff;
+    cursor: pointer;
+    opacity: 0.85;
+    transition: var(--transition-smooth);
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    &:hover {
+      background: rgba(15, 23, 42, 0.8);
+      opacity: 1;
+    }
+
+    // Big enough to hit comfortably on a phone.
+    @media (pointer: coarse) {
+      width: 44px;
+      height: 44px;
+    }
+
+    &--prev {
+      inset-inline-start: 12px;
+    }
+
+    &--next {
+      inset-inline-end: 12px;
+    }
+
+    // The chevrons are drawn pointing left/right, so mirror them when the
+    // buttons swap sides — otherwise "next" would point backwards.
+    :host-context([dir='rtl']) & svg {
+      transform: scaleX(-1);
+    }
+  }
+
+  .gallery-counter {
+    position: absolute;
+    bottom: 16px;
+    inset-inline-end: 16px;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(4px);
+    color: #ffffff;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 20px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .gallery-dots {
+    position: absolute;
+    bottom: 16px;
+    inset-inline-start: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+
+    .gallery-dot {
+      width: 8px;
+      height: 8px;
+      padding: 0;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: var(--transition-smooth);
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.8);
+      }
+
+      &.is-active {
+        background: #ffffff;
+        width: 20px;
+        border-radius: 4px;
+      }
+    }
+  }
+
   .category-badge {
     position: absolute;
     top: 16px;
