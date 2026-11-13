@@ -1,17 +1,15 @@
 services:
+  # Static production builds served by unprivileged nginx (container port 8080).
   server:
     build:
       context: .
-    environment:
-      NODE_ENV: production
     ports:
-      - "3000:3000"
+      - "127.0.0.1:4200:8080"
+    restart: unless-stopped
 
   admin:
     build:
       context: ../admin-teto-toys
-    environment:
-      NODE_ENV: development
     ports:
-      - "4201:4201"
+      - "127.0.0.1:4201:8080"
     restart: unless-stopped

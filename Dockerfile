@@ -1,26 +1,14 @@
 # syntax=docker/dockerfile:1
-
-# Comments are provided throughout this file to help you get started.
-# If you need more help, visit the Dockerfile reference guide at
-# https://docs.docker.com/go/dockerfile-reference/
-
-# Want to help us make this template better? Share your feedback here: https://forms.gle/ybq9Krt8jtBL3iCk7
-
-ARG NODE_VERSION=20.20.2
-
-################################################################################
-# Use node image for base image for all stages.
-FROM node:${NODE_VERSION}-alpine AS base
-
+# Build the production bundle, then serve it as static files — never ship the Angular dev server.
+FROM node:22-alpine AS build
 WORKDIR /app
-
 COPY package*.json ./
-
-RUN npm install
-
+RUN npm ci
 COPY . .
+RUN npx ng build --configuration production
 
-EXPOSE 4200
-
-################################################
-CMD ["npx", "ng", "serve", "--host", "0.0.0.0", "--poll", "2000"]
+# Unprivileged nginx: runs as uid 101, listens on 8080.
+FROM nginxinc/nginx-unprivileged:1.27-alpine
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /app/dist/teto-toys/browser /usr/share/nginx/html
+EXPOSE 8080
